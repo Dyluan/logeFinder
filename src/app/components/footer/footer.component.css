@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+.main {
+    background-color: #1C3988;
+    color: white;
+    font-family: 'Open Sans';
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 100px;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.left, .right, .mid{
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 78px;
+    padding-bottom: 21px;
+}
+.left {
+    padding-left: 80px;
+}

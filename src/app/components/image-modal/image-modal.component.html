@@ -1,0 +1,10 @@
+<div class="modal" *ngIf="isOpen">
+    <div class="modal-content">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <img [src]="currentImage" alt="Image" class="modal-image">
+        <div class="navigation">
+            <button (click)="previousImage()">&#10094;</button>
+            <button (click)="nextImage()">&#10095;</button>
+        </div>
+    </div>
+</div>

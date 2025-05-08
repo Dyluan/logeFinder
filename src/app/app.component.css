@@ -1,0 +1,10 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+router-outlet {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

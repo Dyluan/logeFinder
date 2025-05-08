@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+.main {
+    width: 363px;
+    background-color: #1C3988;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1000;
+    font-family: 'Open Sans';
+    color: white;
+}
+.headerContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 18px;
+    
+    border-bottom: 2px solid #6E8AE9;
+    padding-bottom: 10px;
+}
+.lang {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 29px;
+}
+.modeContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 18px 18px 18px;
+}
+.modeText {
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.modeText img {
+    margin-right: 15px;
+}
+.crossContainer {
+    cursor: pointer;
+}

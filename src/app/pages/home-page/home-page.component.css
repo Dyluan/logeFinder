@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.title-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Merriweather', serif;
+
+    color: #141B2D;
+    margin-top: 70px;
+}
+
+.title {
+    font-size: 52px;
+}
+.subtitle {
+    font-size: 22px;
+    line-height: 35px;
+    font-family: 'Open Sans';
+}
+.cardsContainer {
+    width: 1120px;
+}
+.searchMenu {
+    width: 1250px;
+}
+.footer {
+    width: 1250px;
+}
+.header {
+    width: 100%;
+}

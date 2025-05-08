@@ -1,0 +1,29 @@
+<div class="main">
+    <div class="header">
+        <app-header (menuClicked)="onHeaderMenuClick()"/>
+    </div>
+    <div class="title-container">
+        <h1 class="title">{{ title }}</h1>
+        <div class="subtitle">{{ subtitle }}</div>
+    </div>
+    
+    <div class="searchMenu">
+        <app-search-bar />
+    </div>
+    
+    <div class="cardsContainer">
+        <div class="cards">
+            <app-small-card />
+        </div>
+    </div>
+
+    <div class="footer">
+        <app-footer />
+    </div>
+
+    @if (isMenuOpen) {
+        <div class="menu">
+            <app-menu (closeMenu)="onMenuCloseClick()"/>
+        </div>
+    }
+</div>

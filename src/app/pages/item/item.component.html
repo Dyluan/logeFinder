@@ -1,0 +1,95 @@
+<div class="header">
+    <app-header (menuClicked)="onHeaderMenuClick()"></app-header>
+</div>
+
+<div class="main">    
+    @if (isMenuOpen) {
+        <div class="menu">
+            <app-menu (closeMenu)="onMenuCloseClick()"></app-menu>
+        </div>
+    }
+
+    <div class="titleContainer">
+        <div class="title">{{ appartement.title }}</div>
+    </div>
+
+    <div class="container">
+        <div class="left">
+            <div class="imgBigContainer">
+                <div class="mainImgContainer">
+                    <div class="mainImg" (click)="openImageModal(0)"><img src="img/testImg.jpg" (click)="openImageModal(0)" alt="bigImg"></div>
+                </div>
+                <div class="smallImgContainer">
+                    <div class="smallImg" (click)="openImageModal(1)"><img src="img/big.png" alt="small image"></div>
+                    <div class="smallImg" (click)="openImageModal(2)"><img src="img/test2.jpg" alt="small image"></div>
+                    <div class="smallImg" (click)="openImageModal(3)"><img src="img/small3.png" alt="small image"></div>
+                </div>
+            </div>
+            <div class="midPageContainer">
+                <div class="descContainer">
+                    <div class="descTitle">
+                        <div class="descInfos">
+                            <div class="descImg"><img src="img/building.png" alt="building" /></div> {{ appartement.type }}
+                        </div>
+                        <div class="descInfos">
+                            <div class="descImg"><img src="img/dimensions.png" alt="dimensions" /></div>{{ appartement.surface }} m2
+                        </div>
+                        <div class="descInfos">
+                            <div class="descImg"><img src="img/pin.png" alt="pin" /></div>{{ appartement.ville }}
+                        </div>
+                    </div>
+                    <div class="contacter">
+                        <div class="price">{{ appartement.prix }} €</div>
+                        <div class="contactButtonContainer">
+                            <button type="button" class="contactButton">Contacter l'annonceur</button>
+                        </div>
+                    </div>
+                    <div class="descTextContainer">{{ appartement.description }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="statsContainer">
+                <div class="stats">
+                    <div class="statsTitle">
+                        Caractéristiques
+                    </div>
+                    <div class="stat"><b>City:</b> {{ appartement.ville }} <br /> </div>
+                    <div class="stat"><b>Street:</b> Vincent ala Carne <br /> </div>
+                    <div class="stat"><b>Garages:</b> 2 cars <br /> </div>
+                    <div class="stat"><b>Type:</b> {{ appartement.type }} <br /> </div>
+                    <div class="stat"><b>Number of rooms:</b> 5 <br /> </div>
+                    <div class="stat"><b>Total area:</b> {{ appartement.surface }} m2 <br /> </div>
+                    <div class="stat"><b>Insulated object:</b> Yes <br /> </div>
+                    <div class="stat"><b>Balcony:</b> Yes <br /> </div>
+                    <div class="stat"><b>Terrace:</b> Yes</div> 
+                    <div class="stat"><b>Number of bathrooms: 1 </b> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <app-footer></app-footer>
+    </div>
+</div>
+
+<!-- @if(isModalOpen) {
+    <app-image-modal 
+        #imageModal
+        *ngIf="isModalOpen" 
+        [images]="imageUrls" 
+        (close)="onModalClose()"
+        [currentIndex]="selectedImageIndex"
+        [isOpen]="isModalOpen"
+        (close)="onModalClose()">
+    </app-image-modal>
+} -->
+
+<app-image-modal 
+    #imageModal
+    *ngIf="isModalOpen" 
+    [images]="imageUrls" 
+    [currentIndex]="selectedImageIndex"
+    [isOpen]="isModalOpen"
+    (close)="onModalClose()">
+</app-image-modal>
