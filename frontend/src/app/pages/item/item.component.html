@@ -55,10 +55,10 @@
                         Caractéristiques
                     </div>
                     <div class="stat"><b>City:</b> {{ appartement.ville }} <br /> </div>
-                    <div class="stat"><b>Street:</b> Vincent ala Carne <br /> </div>
+                    <div class="stat"><b>Street:</b> {{ appartement.adresse }} <br /> </div>
                     <div class="stat"><b>Garages:</b> 2 cars <br /> </div>
                     <div class="stat"><b>Type:</b> {{ appartement.type }} <br /> </div>
-                    <div class="stat"><b>Number of rooms:</b> 5 <br /> </div>
+                    <div class="stat"><b>Number of rooms:</b> {{ appartement.nombreChambres }} <br /> </div>
                     <div class="stat"><b>Total area:</b> {{ appartement.surface }} m2 <br /> </div>
                     <div class="stat"><b>Insulated object:</b> Yes <br /> </div>
                     <div class="stat"><b>Balcony:</b> Yes <br /> </div>
@@ -72,18 +72,6 @@
         <app-footer></app-footer>
     </div>
 </div>
-
-<!-- @if(isModalOpen) {
-    <app-image-modal 
-        #imageModal
-        *ngIf="isModalOpen" 
-        [images]="imageUrls" 
-        (close)="onModalClose()"
-        [currentIndex]="selectedImageIndex"
-        [isOpen]="isModalOpen"
-        (close)="onModalClose()">
-    </app-image-modal>
-} -->
 
 <app-image-modal 
     #imageModal

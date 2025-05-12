@@ -93,6 +93,11 @@ img {
     width: 191px;
     margin-top: 16px;
     margin-bottom: 45px;
+    height: 84px;
+}
+.smallImg img {
+    width: 100%;
+    height: 100%;
 }
 .descImg {
     width: 43px;
