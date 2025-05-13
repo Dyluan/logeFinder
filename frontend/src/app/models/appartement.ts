@@ -1,7 +1,7 @@
 export class Appartement {
     
     constructor(
-        public id: string,
+        public id?: string,
         public title?: string | null | undefined,
         public description?: string | null | undefined,
         public adresse?: string | null | undefined,
@@ -13,6 +13,7 @@ export class Appartement {
         public type?: 'Appartement' | 'Maison' | 'Villa' | 'Studio',
         public parking?: boolean | null | undefined,
         public garage?: boolean | null | undefined,
+        public images?: string[] | null | undefined,
     ) {}
 
 }
