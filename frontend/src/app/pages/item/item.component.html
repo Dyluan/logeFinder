@@ -10,7 +10,7 @@
     }
 
     <div class="titleContainer">
-        <div class="title">{{ appartement.title }}</div>
+        <div class="title">{{ appartment.title }}</div>
     </div>
 
     <div class="container">
@@ -29,22 +29,22 @@
                 <div class="descContainer">
                     <div class="descTitle">
                         <div class="descInfos">
-                            <div class="descImg"><img src="img/building.png" alt="building" /></div> {{ appartement.type }}
+                            <div class="descImg"><img src="img/building.png" alt="building" /></div> {{ appartment.type_bien }}
                         </div>
                         <div class="descInfos">
-                            <div class="descImg"><img src="img/dimensions.png" alt="dimensions" /></div>{{ appartement.surface }} m2
+                            <div class="descImg"><img src="img/dimensions.png" alt="dimensions" /></div>{{ appartment.surface }} m2
                         </div>
                         <div class="descInfos">
-                            <div class="descImg"><img src="img/pin.png" alt="pin" /></div>{{ appartement.ville }}
+                            <div class="descImg"><img src="img/pin.png" alt="pin" /></div>{{ appartment.ville }}
                         </div>
                     </div>
                     <div class="contacter">
-                        <div class="price">{{ appartement.prix }} €</div>
+                        <div class="price">{{ appartment.prix }} €</div>
                         <div class="contactButtonContainer">
                             <button type="button" class="contactButton">Contacter l'annonceur</button>
                         </div>
                     </div>
-                    <div class="descTextContainer">{{ appartement.description }}</div>
+                    <div class="descTextContainer">{{ appartment.description }}</div>
                 </div>
             </div>
         </div>
@@ -54,12 +54,12 @@
                     <div class="statsTitle">
                         Caractéristiques
                     </div>
-                    <div class="stat"><b>City:</b> {{ appartement.ville }} <br /> </div>
-                    <div class="stat"><b>Street:</b> {{ appartement.adresse }} <br /> </div>
-                    <div class="stat"><b>Garages:</b> 2 cars <br /> </div>
-                    <div class="stat"><b>Type:</b> {{ appartement.type }} <br /> </div>
-                    <div class="stat"><b>Number of rooms:</b> {{ appartement.nombreChambres }} <br /> </div>
-                    <div class="stat"><b>Total area:</b> {{ appartement.surface }} m2 <br /> </div>
+                    <div class="stat"><b>City:</b> {{ appartment.ville }} <br /> </div>
+                    <div class="stat"><b>Street:</b> {{ appartment.adresse }} <br /> </div>
+                    <div class="stat"><b>Garage(s):</b> {{ appartment.garage }} <br /> </div>
+                    <div class="stat"><b>Type:</b> {{ appartment.type_bien }} <br /> </div>
+                    <div class="stat"><b>Number of rooms:</b> {{ appartment.nombre_chambres }} <br /> </div>
+                    <div class="stat"><b>Total area:</b> {{ appartment.surface }} m2 <br /> </div>
                     <div class="stat"><b>Insulated object:</b> Yes <br /> </div>
                     <div class="stat"><b>Balcony:</b> Yes <br /> </div>
                     <div class="stat"><b>Terrace:</b> Yes</div> 

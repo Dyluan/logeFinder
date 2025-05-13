@@ -15,4 +15,8 @@ export class AppartmentService {
   getAppartments(): Observable<Appartement[]> {
     return this.http.get<Appartement[]>(this.apiUrl);
   }
+
+  getAppartmentById(id: number): Observable<Appartement> {
+    return this.http.get<Appartement>(`${this.apiUrl}/${id}`);
+  }
 }

@@ -1,10 +1,12 @@
-import { Component, ViewChild, AfterViewInit, Input } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit, inject } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { MenuComponent } from '../../components/menu/menu.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { ImageModalComponent } from '../../components/image-modal/image-modal.component';
 import { CommonModule } from '@angular/common';
 import { Appartement } from '../../models/appartement';
+import { AppartmentService } from '../../services/appartment.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-item',
@@ -18,10 +20,31 @@ import { Appartement } from '../../models/appartement';
   templateUrl: './item.component.html',
   styleUrl: './item.component.css'
 })
-export class ItemComponent  {
+export class ItemComponent implements OnInit {
+
+  constructor(private appartmentService: AppartmentService) {}
+  
+  private route = inject(ActivatedRoute);
+  
+  id!: number | null;
+  appartment!: Appartement;
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      let tempId = params.get('id');
+      this.id = parseInt(tempId!);
+    });
+    this.appartmentService.getAppartmentById(this.id!).subscribe(
+      data => {
+        this.appartment = data;
+        console.log('oninit' , this.appartment);
+      }
+    )
+  }
 
   @ViewChild('imageModal') imageModal!: ImageModalComponent;
 
+  //need to load those images from the server as well
   imageUrls: string[] = [
     'img/testImg.jpg',
     'img/big.png',
@@ -33,20 +56,6 @@ export class ItemComponent  {
 
   isMenuOpen = false;
   isModalOpen = false;
-
-  appartement: Appartement = {
-    id: 1,
-    title: 'Premium penthouse in central Barcelona with panoramic views',
-    type: 'Appartement',
-    surface: 224,
-    ville: 'Saint-Gilles',
-    prix: 1200000,
-    description: `FEDORS GROUP offers an exclusive FOR SALE elegant large 5-room apartment on Vincent Hložník Street in the Condominium Renaissance residential complex. 
-      Thanks to its unique location, the property has access to a large Japanese garden with an area of 35 m2, which can be accessed directly from the bedroom. The front of the apartment is at the height of the third floor, so the terrace is located just above the treetops, which gives the apartment a unique atmosphere. Overall, the apartment has a direct view of the Danube River and the surrounding forests. 
-      The apartment offers extraordinary comfort, has a first-class interior from the leading architectural office Cakov Makara and equipment from renowned world furniture manufacturers. The overall atmosphere of the apartment is completed`,
-    adresse: 'Vincent Hložník Street',
-    nombreChambres: 3,
-  }
 
   //function related to the image modal
   ngAfterViewInit(): void {

@@ -27,5 +27,22 @@ app.get('/appartments', async (req, res) => {
     console.log(result.rows);
 })
 
+app.get('/appartments/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await pool.query('SELECT * FROM biens_immobiliers WHERE id = $1', [id]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'Bien immobilier non trouvé' });
+        }
+
+        res.json(result.rows[0]);
+    }
+    catch(error) {
+        console.error('Erreur lors de la récupération du bien immobilier:', error.message);
+        res.status(500).json({ error: error.message});
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

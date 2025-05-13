@@ -84,10 +84,18 @@ img {
     margin: 0;
     padding: 0;
 }
+.mainImg {
+    width: 735px;
+    height: 363px;
+}
+.mainImg img {
+    width: 100%;
+    height: 100%;
+}
 .smallImgContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .smallImg {
     width: 191px;
