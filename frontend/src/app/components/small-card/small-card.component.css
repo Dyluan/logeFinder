@@ -16,6 +16,14 @@
     border-radius: 10px 10px 0 0;
     cursor: pointer;
 }
+.imgContainer {
+    max-width: 350px;
+    max-height: 250px;
+}
+.imgContainer img {
+    width: 100%;
+    height: 100%;
+}
 .descTitle {
     color: #141B2D;
     font-size: 22px;

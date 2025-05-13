@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MainService } from '../../services/main.service';
 
 @Component({
@@ -11,13 +11,20 @@ export class SmallCardComponent {
 
   constructor(private mainService: MainService) {}
 
-  title = 'Large 4 room appartment with nice terrace';
-  price = '1,200,000';
-  location = 'Saint-Gilles';
-  id = '4';
+  newTitle = input<string>('');
+  newPrice = input<number>();
+  newLocation = input<string>('');
+  newId = input<number>();
+  newImg = input<string>('');
 
   navigateToDetails() {
     // this.route.navigate(['/item', this.id]);
-    this.mainService.navigateToDetails(this.id);
+    if (this.newId() === undefined || this.newId() === null) {
+      console.error('ID is undefined');
+      return;
+    }
+    //navigateToDetails is a method that takes a string as an argument
+    let tempID = this.newId()!.toString();
+    this.mainService.navigateToDetails(tempID);
   }
 }

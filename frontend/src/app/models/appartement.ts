@@ -1,7 +1,7 @@
 export class Appartement {
     
     constructor(
-        public id?: string,
+        public id?: number,
         public title?: string | null | undefined,
         public description?: string | null | undefined,
         public adresse?: string | null | undefined,

@@ -35,7 +35,7 @@ export class ItemComponent  {
   isModalOpen = false;
 
   appartement: Appartement = {
-    id: '1',
+    id: 1,
     title: 'Premium penthouse in central Barcelona with panoramic views',
     type: 'Appartement',
     surface: 224,

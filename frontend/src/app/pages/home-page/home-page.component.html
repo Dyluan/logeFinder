@@ -12,9 +12,19 @@
     </div>
     
     <div class="cardsContainer">
-        <div class="cards">
-            <app-small-card />
-        </div>
+            @if (areDataLoaded && appartments.length > 0) {
+                @for (item of appartments; track $index) {
+                    <div class="cards">
+                        <app-small-card 
+                            [newId]="item.id!"
+                            [newTitle]="item.title!"
+                            [newPrice]="item.prix!"
+                            [newLocation]="item.ville!"
+                            [newImg]="item.images![0]"
+                        />
+                    </div>
+                }
+            }
     </div>
 
     <div class="footer">

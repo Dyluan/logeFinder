@@ -1,12 +1,13 @@
 <div class="main">
     <div class="imgContainer">
-        <img src="img/test.png" alt="testImage" (click)="navigateToDetails()">
+        <!-- <img src="img/test.png" alt="testImage" (click)="navigateToDetails()"> -->
+        <img [src]="newImg()" alt="testImage" (click)="navigateToDetails()">
     </div>
     <div class="desc">
-        <div class="descTitle" (click)="navigateToDetails()">{{ title }}</div>
+        <div class="descTitle" (click)="navigateToDetails()">{{ newTitle() }}</div>
         <div class="descInfos">
-            <div class="price">{{ price }} €</div>
-            <div class="location">{{ location }}</div>
+            <div class="price">{{ newPrice() }} €</div>
+            <div class="location">{{ newLocation() }}</div>
         </div>
     </div>
     <div class="bottom">

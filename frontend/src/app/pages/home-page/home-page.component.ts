@@ -6,6 +6,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { MenuComponent } from '../../components/menu/menu.component';
 import { AppartmentService } from '../../services/appartment.service';
 import { Appartement } from '../../models/appartement';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { Appartement } from '../../models/appartement';
     FooterComponent,
     HeaderComponent,
     MenuComponent,
+    CommonModule,
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
@@ -23,6 +25,7 @@ import { Appartement } from '../../models/appartement';
 export class HomePageComponent implements OnInit {
 
   appartments: Appartement[] = [];
+  areDataLoaded: boolean = false;
 
   constructor(private appartmentService: AppartmentService) {}
 
@@ -30,7 +33,8 @@ export class HomePageComponent implements OnInit {
     this.appartmentService.getAppartments().subscribe(
       data => {
         this.appartments = data;
-        console.log(data)
+        this.areDataLoaded = true;
+        console.log('oninit' , this.appartments);
       }
     )
   };
