@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { Appartement } from '../../models/appartement';
 import { AppartmentService } from '../../services/appartment.service';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-item',
@@ -25,9 +27,14 @@ export class ItemComponent implements OnInit {
   constructor(private appartmentService: AppartmentService) {}
   
   private route = inject(ActivatedRoute);
+  private sanitizer = inject(DomSanitizer);
   
   id!: number | null;
   appartment!: Appartement;
+
+  googleSrc: string = '';
+  realUrl: SafeResourceUrl = '';
+  googleMapsApi: string = environment.googleMapsApiKey;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -37,9 +44,12 @@ export class ItemComponent implements OnInit {
     this.appartmentService.getAppartmentById(this.id!).subscribe(
       data => {
         this.appartment = data;
+        this.googleSrc = 'https://www.google.com/maps/embed/v1/place?key='+this.googleMapsApi+'&q='+this.appartment.adresse+','+this.appartment.ville;
+        this.realUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.googleSrc);
         console.log('oninit' , this.appartment);
       }
     )
+    
   }
 
   @ViewChild('imageModal') imageModal!: ImageModalComponent;

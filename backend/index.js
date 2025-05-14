@@ -24,7 +24,7 @@ pool.connect((err, client, release) => {
 app.get('/appartments', async (req, res) => {
     const result = await pool.query('SELECT * FROM biens_immobiliers');
     res.json(result.rows);
-    console.log(result.rows);
+    console.log('appartments fetched');
 })
 
 app.get('/appartments/:id', async (req, res) => {

@@ -17,7 +17,7 @@
         <div class="left">
             <div class="imgBigContainer">
                 <div class="mainImgContainer">
-                    <div class="mainImg" (click)="openImageModal(0)"><img src="img/testImg.jpg" (click)="openImageModal(0)" alt="bigImg"></div>
+                    <div class="mainImg" (click)="openImageModal(0)"><img [src]="appartment.images![0]" (click)="openImageModal(0)" alt="bigImg"></div>
                 </div>
                 <div class="smallImgContainer">
                     <div class="smallImg" (click)="openImageModal(1)"><img src="img/big.png" alt="small image"></div>
@@ -45,6 +45,17 @@
                         </div>
                     </div>
                     <div class="descTextContainer">{{ appartment.description }}</div>
+                        <div class="mapsLocation">
+                            <iframe
+                                width="610"
+                                height="368"
+                                style="border:0"
+                                loading="lazy"
+                                allowfullscreen
+                                referrerpolicy="no-referrer-when-downgrade"
+                                [src]="realUrl">
+                            </iframe>
+                        </div>
                 </div>
             </div>
         </div>
@@ -60,14 +71,11 @@
                     <div class="stat"><b>Type:</b> {{ appartment.type_bien }} <br /> </div>
                     <div class="stat"><b>Number of rooms:</b> {{ appartment.nombre_chambres }} <br /> </div>
                     <div class="stat"><b>Total area:</b> {{ appartment.surface }} m2 <br /> </div>
-                    <div class="stat"><b>Insulated object:</b> Yes <br /> </div>
-                    <div class="stat"><b>Balcony:</b> Yes <br /> </div>
-                    <div class="stat"><b>Terrace:</b> Yes</div> 
-                    <div class="stat"><b>Number of bathrooms: 1 </b> </div>
+                    <div class="stat"><b>Parking:</b> {{ appartment.parking }} <br /></div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>        
     <div class="footer">
         <app-footer></app-footer>
     </div>
