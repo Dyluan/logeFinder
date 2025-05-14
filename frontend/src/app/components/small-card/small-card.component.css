@@ -17,8 +17,8 @@
     cursor: pointer;
 }
 .imgContainer {
-    max-width: 350px;
-    max-height: 250px;
+    width: 350px;
+    height: 250px;
 }
 .imgContainer img {
     width: 100%;
