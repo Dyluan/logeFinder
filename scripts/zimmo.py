@@ -8,6 +8,10 @@ driver.get("https://www.zimmo.be/fr/rechercher/?search=eyJmaWx0ZXIiOnsic3RhdHVzI
 
 isThereACookiePopUp = True
 
+priceList = []
+titleList = []
+adressList = []
+
 time.sleep(5)
 
 if (driver.find_element(By.ID, 'didomi-popup')):
@@ -20,9 +24,27 @@ if (driver.find_element(By.ID, 'didomi-popup')):
 time.sleep(5)
 
 big_container = driver.find_element(By.CLASS_NAME, 'property-results_container')
-print('big container found. Type of that container: ', type(big_container))
-print(big_container)
-nb_of_containers = big_container.find_elements(By.CLASS_NAME, 'property_item')
-print(len(nb_of_containers), ' appartments/houses on the front page')
+print('big container found. ')
+
+nb_containers = big_container.find_elements(By.CSS_SELECTOR, 'div.property-item')
+
+for item in nb_containers:
+    #tempPrice works but some prices are 'on demand' or 'àpd', which needs to be trimmed
+    tempPrice = item.find_element(By.CSS_SELECTOR, 'div.property-item_price').text
+    priceList.append(tempPrice)
+
+    infoContainer = item.find_element(By.CSS_SELECTOR, 'div.property-item_info-container')
+    
+    #works as intended. Output is either : 'Appartement à vendre' or 'Maison à vendre' or 'Projet'
+    #might need to do something about Project    
+    tempTitle = infoContainer.find_element(By.CSS_SELECTOR, 'div.property-item_title').text
+    titleList.append(tempTitle)
+    
+    adress = infoContainer.find_element(By.CSS_SELECTOR, 'div.property-item_address').text
+    adressList.append(adress)
+
 
 driver.close()
+
+for i in range(0, len(priceList)):
+    print(titleList[i] + ' pour seulement ' + priceList[i] + '. Situé ' +adressList[i])
