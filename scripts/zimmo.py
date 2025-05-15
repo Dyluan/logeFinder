@@ -8,6 +8,8 @@ driver.get("https://www.zimmo.be/fr/rechercher/?search=eyJmaWx0ZXIiOnsic3RhdHVzI
 
 isThereACookiePopUp = True
 
+time.sleep(5)
+
 if (driver.find_element(By.ID, 'didomi-popup')):
     print('there is a popup page that wants us to accept the cookies')
     accept_cookies_button = 'didomi-notice-agree-button'
@@ -15,11 +17,12 @@ if (driver.find_element(By.ID, 'didomi-popup')):
     print('cookies accepted like a boss')
 
 # allows browser to wait until js elements are loaded
-time.sleep(3)
+time.sleep(5)
 
 big_container = driver.find_element(By.CLASS_NAME, 'property-results_container')
-print('big container found')
-nb_of_containers = driver.find_elements(By.CLASS_NAME, 'property_item')
-print(nb_of_containers, ' appartments/houses on the front page')
+print('big container found. Type of that container: ', type(big_container))
+print(big_container)
+nb_of_containers = big_container.find_elements(By.CLASS_NAME, 'property_item')
+print(len(nb_of_containers), ' appartments/houses on the front page')
 
 driver.close()
