@@ -14,6 +14,8 @@ export class Appartement {
         public parking?: boolean | null | undefined,
         public garage?: boolean | null | undefined,
         public images?: string[] | null | undefined,
+        public lien_annonce?: string | null | undefined,
+        public type_annonce?: string | null | undefined,
     ) {}
 
 }
