@@ -11,6 +11,8 @@ isThereACookiePopUp = True
 priceList = []
 titleList = []
 adressList = []
+cityList = []
+postal_codeList = []
 
 time.sleep(5)
 
@@ -40,11 +42,27 @@ for item in nb_containers:
     tempTitle = infoContainer.find_element(By.CSS_SELECTOR, 'div.property-item_title').text
     titleList.append(tempTitle)
     
-    adress = infoContainer.find_element(By.CSS_SELECTOR, 'div.property-item_address').text
-    adressList.append(adress)
+    #adress contains the postal code as well. Need to separate boths.
+    adressFull = infoContainer.find_element(By.CSS_SELECTOR, 'div.property-item_address').text
+    adress_parts = adressFull.split('\n')
+    
+    adressList.append(adress_parts[0])
+    
+    #splitting the postalCode and the city as they are both in adress_parts[1]
+    tempCP = adress_parts[1].split(' ')
+    
+    postal_codeList.append(tempCP[0])
+    cityList.append(tempCP[1])
+    
+    dataContainer = infoContainer.find_element(By.CSS_SELECTOR, 'div.property-item_meta-info')
+    
+    #need to separate the data : 78m2 => 78
+    #not done yet
+    surface = dataContainer.find_element(By.CSS_SELECTOR, 'span.opp-icon').text
+    print('Appartement de ', surface)
 
 
 driver.close()
 
-for i in range(0, len(priceList)):
-    print(titleList[i] + ' pour seulement ' + priceList[i] + '. Situé ' +adressList[i])
+# for i in range(0, len(priceList)):
+#     print(titleList[i] + ' pour seulement ' + priceList[i] + '. Situé ' + adressList[i] + ' dans la ville de ' + cityList[i])
