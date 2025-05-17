@@ -1,0 +1,64 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+import time
+
+# this var is a list of all links available for the current search
+# this will be output in some file later on
+linksList = []
+
+# this link is relative to real estate goods for sale only
+realEstateForSale = 'https://www.zimmo.be/fr/rechercher/?search=eyJmaWx0ZXIiOnsic3RhdHVzIjp7ImluIjpbIkZPUl9TQUxFIiwiVEFLRV9PVkVSIl19LCJwbGFjZUlkIjp7ImluIjpbNzJdfSwiY2F0ZWdvcnkiOnsiaW4iOlsiSE9VU0UiLCJBUEFSVE1FTlQiXX19LCJzb3J0aW5nIjpbeyJ0eXBlIjoiUkFOS0lOR19TQ09SRSIsIm9yZGVyIjoiREVTQyJ9XSwicGFnaW5nIjp7ImZyb20iOjIyNywic2l6ZSI6MjF9fQ%3D%3D&p=1#gallery'
+
+driver = webdriver.Firefox()
+
+driver.get(realEstateForSale)
+
+# allows the browser to wait until cookies page pops up. There should be a better solution than this
+time.sleep(5)
+
+# accept the cookies if there are any
+if (driver.find_element(By.ID, 'didomi-popup')):
+    accept_cookies_button = 'didomi-notice-agree-button'
+    driver.find_element(By.ID, accept_cookies_button).click()
+    print('cookies accepted like a boss')
+    
+time.sleep(5)
+
+nbOfPagesContainer = driver.find_element(By.CSS_SELECTOR, 'ul.pagination')
+# list of all the li elems on the bottom of the page
+lis = nbOfPagesContainer.find_elements(By.TAG_NAME, 'li')
+# text element containing the number of pages available for that search
+nbOfPages = lis[-2].text
+
+# doesnt work, got stopped after 2 pages browsed by a captcha requiring me to prove im not a robot.
+# need to find a workaround
+for i in range (1, int(nbOfPages)+1):
+    #creating the url of the pages to visit
+    urlToVisit = 'https://www.zimmo.be/fr/rechercher/?search=eyJmaWx0ZXIiOnsic3RhdHVzIjp7ImluIjpbIkZPUl9TQUxFIiwiVEFLRV9PVkVSIl19LCJwbGFjZUlkIjp7ImluIjpbNzJdfSwiY2F0ZWdvcnkiOnsiaW4iOlsiSE9VU0UiLCJBUEFSVE1FTlQiXX19LCJzb3J0aW5nIjpbeyJ0eXBlIjoiUkFOS0lOR19TQ09SRSIsIm9yZGVyIjoiREVTQyJ9XSwicGFnaW5nIjp7ImZyb20iOjIyNywic2l6ZSI6MjF9fQ%3D%3D&p=' + str(i) + '#gallery'
+    
+    driver.get(urlToVisit)
+    print('Currently browsing : ', urlToVisit)
+        
+    time.sleep(5)
+    
+    big_container = driver.find_element(By.CLASS_NAME, 'property-results_container')
+    individualItems = big_container.find_elements(By.CSS_SELECTOR, 'div.property-item')
+
+    for item in individualItems:
+        container = item.find_element(By.CSS_SELECTOR, 'div.property-item_photo-container')
+        linkContainer = container.find_element(By.CSS_SELECTOR, 'a.property-item_link')
+        link = linkContainer.get_attribute('href')
+        # print(link)
+        linksList.append(link)
+
+
+driver.close()
+
+print('------------------------------------')
+print('        --------------')
+for linkToPrint in linksList:
+    print(linkToPrint)
+
+print('--------------------------')
+print('There are ' , len(linksList), ' links for that search')
