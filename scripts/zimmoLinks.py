@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 import time
 from fake_useragent import UserAgent
+from utils.free_proxies import FreeProxy
+import random
 
 # this var is a list of all links available for the current search
 # this will be output in some file later on
@@ -13,12 +15,24 @@ linksList = []
 ua = UserAgent()
 user_agent = ua.random
 
+# gets a free proxy to use
+free_proxy = FreeProxy() 
+proxy_list = free_proxy.get_proxy_list()
+random_choice = random.choice(proxy_list)
+random_proxy = random_choice.split(':')[0]
+random_port = random_choice.split(':')[1]
+print('using : ', random_choice)
+
 # changing the default user agent of firefox webdriver
 options = Options()
+options.set_preference("media.peerconnection.enabled", False)
 options.set_preference("general.useragent.override", user_agent)
+options.set_preference("network.proxy.http", random_proxy)
+options.set_preference("network.proxy.http_port", random_port)
 
 # this link is relative to real estate goods for sale only
 realEstateForSale = 'https://www.zimmo.be/fr/rechercher/?search=eyJmaWx0ZXIiOnsic3RhdHVzIjp7ImluIjpbIkZPUl9TQUxFIiwiVEFLRV9PVkVSIl19LCJwbGFjZUlkIjp7ImluIjpbNzJdfSwiY2F0ZWdvcnkiOnsiaW4iOlsiSE9VU0UiLCJBUEFSVE1FTlQiXX19LCJzb3J0aW5nIjpbeyJ0eXBlIjoiUkFOS0lOR19TQ09SRSIsIm9yZGVyIjoiREVTQyJ9XSwicGFnaW5nIjp7ImZyb20iOjIyNywic2l6ZSI6MjF9fQ%3D%3D&p=1#gallery'
+
 
 driver = webdriver.Firefox(options=options)
 driver.set_window_size(1366, 768)
@@ -51,19 +65,64 @@ for i in range (1, int(nbOfPages)+1):
     time.sleep(1)
     
     driver.get(urlToVisit)
-    print('Currently browsing : ', urlToVisit)
+    print('Currently browsing page ', i)
     
     time.sleep(5)
-    
-    big_container = driver.find_element(By.CLASS_NAME, 'property-results_container')
-    individualItems = big_container.find_elements(By.CSS_SELECTOR, 'div.property-item')
 
-    for item in individualItems:
-        container = item.find_element(By.CSS_SELECTOR, 'div.property-item_photo-container')
-        linkContainer = container.find_element(By.CSS_SELECTOR, 'a.property-item_link')
-        link = linkContainer.get_attribute('href')
-        # print(link)
-        linksList.append(link)
+    try:
+        
+        big_container = driver.find_element(By.CLASS_NAME, 'property-results_container')
+        individualItems = big_container.find_elements(By.CSS_SELECTOR, 'div.property-item')
+
+        for item in individualItems:
+            container = item.find_element(By.CSS_SELECTOR, 'div.property-item_photo-container')
+            linkContainer = container.find_element(By.CSS_SELECTOR, 'a.property-item_link')
+            link = linkContainer.get_attribute('href')
+            print(link)
+            linksList.append(link)
+    except:
+        print('-----------------')
+        print('Script detected. Closing and opening again on same link')
+        print('-----------------')
+        
+        # closing the webdriver and opening it again using a different agent and proxy
+        driver.close()
+        
+        random_choice = random.choice(proxy_list)
+        random_proxy = random_choice.split(':')[0]
+        random_port = random_choice.split(':')[1]
+        print('using new proxy : ', random_choice)
+        user_agent = ua.random
+        
+        options.set_preference("media.peerconnection.enabled", False)
+        options.set_preference("general.useragent.override", user_agent)
+        options.set_preference("network.proxy.http", random_proxy)
+        options.set_preference("network.proxy.http_port", random_port)
+
+        driver = webdriver.Firefox(options=options)
+        driver.set_window_size(1366, 768)
+
+        driver.get(urlToVisit)
+        print('OH shit, here we go again')
+        time.sleep(5)
+        
+        if (driver.find_element(By.ID, 'didomi-popup')):
+            accept_cookies_button = 'didomi-notice-agree-button'
+            driver.find_element(By.ID, accept_cookies_button).click()
+            print('cookies accepted like a boss')
+            
+        time.sleep(4)
+        
+        # très mauvaise idée mais on essaie quand même
+        big_container = driver.find_element(By.CLASS_NAME, 'property-results_container')
+        individualItems = big_container.find_elements(By.CSS_SELECTOR, 'div.property-item')
+
+        for item in individualItems:
+            container = item.find_element(By.CSS_SELECTOR, 'div.property-item_photo-container')
+            linkContainer = container.find_element(By.CSS_SELECTOR, 'a.property-item_link')
+            link = linkContainer.get_attribute('href')
+            print(link)
+            linksList.append(link)
 
 
 driver.close()
