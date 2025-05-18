@@ -1,16 +1,27 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
 import time
+from fake_useragent import UserAgent
 
 # this var is a list of all links available for the current search
 # this will be output in some file later on
 linksList = []
 
+# generates a random user agent
+ua = UserAgent()
+user_agent = ua.random
+
+# changing the default user agent of firefox webdriver
+options = Options()
+options.set_preference("general.useragent.override", user_agent)
+
 # this link is relative to real estate goods for sale only
 realEstateForSale = 'https://www.zimmo.be/fr/rechercher/?search=eyJmaWx0ZXIiOnsic3RhdHVzIjp7ImluIjpbIkZPUl9TQUxFIiwiVEFLRV9PVkVSIl19LCJwbGFjZUlkIjp7ImluIjpbNzJdfSwiY2F0ZWdvcnkiOnsiaW4iOlsiSE9VU0UiLCJBUEFSVE1FTlQiXX19LCJzb3J0aW5nIjpbeyJ0eXBlIjoiUkFOS0lOR19TQ09SRSIsIm9yZGVyIjoiREVTQyJ9XSwicGFnaW5nIjp7ImZyb20iOjIyNywic2l6ZSI6MjF9fQ%3D%3D&p=1#gallery'
 
-driver = webdriver.Firefox()
+driver = webdriver.Firefox(options=options)
+driver.set_window_size(1366, 768)
 
 driver.get(realEstateForSale)
 
@@ -37,9 +48,11 @@ for i in range (1, int(nbOfPages)+1):
     #creating the url of the pages to visit
     urlToVisit = 'https://www.zimmo.be/fr/rechercher/?search=eyJmaWx0ZXIiOnsic3RhdHVzIjp7ImluIjpbIkZPUl9TQUxFIiwiVEFLRV9PVkVSIl19LCJwbGFjZUlkIjp7ImluIjpbNzJdfSwiY2F0ZWdvcnkiOnsiaW4iOlsiSE9VU0UiLCJBUEFSVE1FTlQiXX19LCJzb3J0aW5nIjpbeyJ0eXBlIjoiUkFOS0lOR19TQ09SRSIsIm9yZGVyIjoiREVTQyJ9XSwicGFnaW5nIjp7ImZyb20iOjIyNywic2l6ZSI6MjF9fQ%3D%3D&p=' + str(i) + '#gallery'
     
+    time.sleep(1)
+    
     driver.get(urlToVisit)
     print('Currently browsing : ', urlToVisit)
-        
+    
     time.sleep(5)
     
     big_container = driver.find_element(By.CLASS_NAME, 'property-results_container')
