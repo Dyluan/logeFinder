@@ -1,11 +1,12 @@
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 import time
 from fake_useragent import UserAgent
 from utils.free_proxies import FreeProxy
 import random
+import os
+import json
 
 # this var is a list of all links available for the current search
 # this will be output in some file later on
@@ -129,8 +130,31 @@ driver.close()
 
 print('------------------------------------')
 print('        --------------')
-for linkToPrint in linksList:
-    print(linkToPrint)
-
 print('--------------------------')
-print('There are ' , len(linksList), ' links for that search')
+print('Scraping done. There are ' , len(linksList), ' links for that search')
+
+#########################################################################################
+# this part of the program is reponsible for writing the scraped links into a json file #
+#########################################################################################
+print('--------------------------')
+print('Opening output file')
+print('--------------------------')
+# reads the data located in links.json and outputs it in liste_de_liens
+if os.path.getsize('links.json') > 0:
+    with open('links.json', 'r') as f:
+        liste_de_liens = json.load(f)
+else :
+    liste_de_liens = []
+
+print('Adding scraped results to local array')
+print('--------------------------')
+for link in linksList:
+    liste_de_liens.append(link)
+
+print('adding local array to json file')
+print('--------------------------')
+# adds the new data to the .json file
+with open('links.json', 'w') as f:
+    json.dump(liste_de_liens, f)
+
+print('done')
