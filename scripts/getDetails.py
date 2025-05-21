@@ -88,20 +88,36 @@ for i in range(10):
         # impératif de changer ces filtres, ils sont bien trop restrictifs #
         ####################################################################
         
+        type_flag = True
+        surface_flag = True
+        chambres_flag = True
+        
+        # je check si la page comprend bien les mots Type, Surf. habitable et Chambres. Sinon, je passe le flag correspondant à False
         if (not 'Type' in features_container.text):
             print('Type de location non spécifié')
-            raise TypeError
+            type_flag = False
         elif (not 'Surf. habitable' in features_container.text):
             print('Superficie non spécifée')
-            raise TypeError
+            surface_flag = False
         elif (not 'Chambres' in features_container.text):
             print('Nombre de chambres non spécifié')
+            chambres_flag = False
+        
+        # si l'un de mes flag est False, alors je lance une erreur et on passe au lien suivant sans ajouter de valeurs aux variables
+        if (not type_flag or not surface_flag or not chambres_flag):
             raise TypeError
-        elif (not 'Garages' in features_container.text):
-            print('Nombre de garages non spécifié')
-            raise TypeError
-        # cette condition est sûrement trop restrictive. A modifier
-        elif('demande' in features_container.text):
+        
+        # si la valeur de Type, Surf. habitable ou Chambres est égal à : sur demande, alors le flag correspondant passe à False
+        for i in range(len(features_list)):
+            if ('Type' in features_list[i].text and 'demande' in features_list[i].find_element(By.CSS_SELECTOR, 'span.feature-value').text.strip()):
+                type_flag = False
+            if ('Surf. habitable' in features_list[i].text and 'demande' in features_list[i].find_element(By.CSS_SELECTOR, 'span.feature-value').text.strip()):
+                surface_flag = False
+            if ('Chambres' in features_list[i].text and 'demande' in features_list[i].find_element(By.CSS_SELECTOR, 'span.feature-value').text.strip()):
+                chambres_flag = False
+        
+        # si l'un de mes flag est False, alors je lance une erreur et on passe au lien suivant sans ajouter de valeurs aux variables
+        if (not type_flag or not surface_flag or not chambres_flag):
             raise TypeError
         
     except:
@@ -144,10 +160,11 @@ for i in range(10):
             nombre_chambres_temp = features_list[i].find_element(By.CSS_SELECTOR, 'span.feature-value').text.strip()
             nombre_chambres.append(nombre_chambres_temp)
     
-        if ('Garages' in features_list[i].text):
-            garage.append(True)
-        else:
-            garage.append(False)
+    # si le mot Garages est présent sur la page, c'est qu'il y en a 1 (pas besoin de parcourir la liste pour avoir une valeur binaire)
+    if ('Garages' in features_container.text):
+        garage.append(True)
+    else:
+        garage.append(False)
 
     parking.append(False)
     
@@ -182,6 +199,7 @@ print('parking:', len(parking))
 print('garage:', len(garage))
 print('images:', len(images))
 print('lien_annonce:', len(lien_annonce))
+print('type_annonce:', len(type_annonce))
 
 data_dict = {
     'title': title if isinstance(title, list) else [title],
@@ -210,6 +228,6 @@ file_exists = os.path.isfile('properties.csv')
 #########################################################################
 # attention, tous les headers ne s'écrivent que dans une seule colonne! #
 #########################################################################
-df.to_csv('properties.csv', mode='a', header=not file_exists, index=False, encoding='utf-8')
+df.to_csv('properties.csv', mode='a', sep=';', header=not file_exists, index=False, encoding='utf-8')
 
 print("Données sauvegardées dans properties.csv")
