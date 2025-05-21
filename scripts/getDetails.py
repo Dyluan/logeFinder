@@ -23,28 +23,22 @@ images = []
 lien_annonce = []
 type_annonce = []
 
-# reads the data located in links.json and outputs it in liste_de_liens
-
+# lis les liens présents dans links.json et les enregistre dans liste_de_liens
 with open('links.json', 'r') as f:
     liste_de_liens = json.load(f)
 
-# testLink = 'https://www.zimmo.be/fr/bruxelles-1000/a-vendre/appartement/L6U2F/?search=eyJmaWx0ZXIiOnsic3RhdHVzIjp7ImluIjpbIkZPUl9TQUxFIiwiVEFLRV9PVkVSIl19LCJwbGFjZUlkIjp7ImluIjpbNzJdfSwiY2F0ZWdvcnkiOnsiaW4iOlsiSE9VU0UiLCJBUEFSVE1FTlQiXX19LCJzb3J0aW5nIjpbeyJ0eXBlIjoiUkFOS0lOR19TQ09SRSIsIm9yZGVyIjoiREVTQyJ9XSwicGFnaW5nIjp7ImZyb20iOjIyNywic2l6ZSI6MjF9fQ%3D%3D&p=1&boosted=1'
-# driver = webdriver.Firefox()
-
-# driver.get(testLink)
-
-# for i in range (len(liste_de_liens)):
-for i in range(10):
+# looping tous les liens présents dans liste_de_liens
+for i in range (len(liste_de_liens)):
+    
     driver = webdriver.Firefox()
     driver.get(liste_de_liens[i])
     print('browsing ' + liste_de_liens[i])
     
     time.sleep(4)
-    # accept the cookies if there are any
+    # accepte les cookies
     if (driver.find_element(By.ID, 'didomi-popup')):
         accept_cookies_button = 'didomi-notice-agree-button'
         driver.find_element(By.ID, accept_cookies_button).click()
-        print('cookies accepted like a boss')
         
     time.sleep(3)
     
@@ -84,10 +78,6 @@ for i in range(10):
         prix_full = prix_container.text.split('€')[1]
         prix_temp = prix_full.strip()
         
-        ####################################################################
-        # impératif de changer ces filtres, ils sont bien trop restrictifs #
-        ####################################################################
-        
         type_flag = True
         surface_flag = True
         chambres_flag = True
@@ -125,7 +115,7 @@ for i in range(10):
         driver.close()
         continue
     
-    
+    # si tous les tests sont positifs, alors on peut commencer à rajouter les données dans les listes adéquates
     title.append(title_full.split('(')[0])
 
     if ('à vendre' in title_full):
@@ -225,9 +215,6 @@ df = pd.DataFrame(data_dict)
 file_exists = os.path.isfile('properties.csv')
 
 # Sauvegarder en CSV
-#########################################################################
-# attention, tous les headers ne s'écrivent que dans une seule colonne! #
-#########################################################################
-df.to_csv('properties.csv', mode='a', sep=';', header=not file_exists, index=False, encoding='utf-8')
+df.to_csv('properties.csv', mode='a', sep=';', header=not file_exists, index=False, encoding='utf-8-sig')
 
 print("Données sauvegardées dans properties.csv")
