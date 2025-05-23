@@ -1,12 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.options import Options
-import time
-from fake_useragent import UserAgent
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 import os
 import json
 import re
+import time
 
 title = []
 description = []
@@ -27,20 +27,49 @@ type_annonce = []
 with open('links.json', 'r') as f:
     liste_de_liens = json.load(f)
 
+start_time = time.time()
+
 # looping tous les liens présents dans liste_de_liens
 for i in range (len(liste_de_liens)):
     
-    driver = webdriver.Firefox()
-    driver.get(liste_de_liens[i])
-    print('browsing ' + liste_de_liens[i])
+    try:
+        driver = webdriver.Chrome()
+        driver.get(liste_de_liens[i])
+        print('browsing ' + liste_de_liens[i])
     
-    time.sleep(4)
-    # accepte les cookies
-    if (driver.find_element(By.ID, 'didomi-popup')):
-        accept_cookies_button = 'didomi-notice-agree-button'
-        driver.find_element(By.ID, accept_cookies_button).click()
+    except:
+        print('-----------------')
+        print('Something went wrong during scraping.')
+        print('-----------------')
+        driver.close()
+        driver = webdriver.Chrome()
+        driver.get(liste_de_liens[i])
+        continue
+    
+    # time.sleep(3)
+    
+    try:
+        cookie_popup = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, 'didomi-popup'))
+        )
         
-    time.sleep(3)
+        if cookie_popup:
+            accept_cookies_button = 'didomi-notice-agree-button'
+            driver.find_element(By.ID, accept_cookies_button).click()
+    except:
+        print('No cookie popup found')
+        driver.close()
+        continue
+        
+    try:
+        page_container = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'div.content'))
+        )
+        
+    except:
+        print('No page container found')
+        driver.close()
+        continue
     
     # vérification de la présence des containers dans la page web
     try:
@@ -142,10 +171,16 @@ for i in range (len(liste_de_liens)):
 
             # si le format du prix est comme : 'à partir de 125 m² '
             if ('à partir' in surface_full):
-                surface.append(surface_full.split(' ')[3])
+                surface_temp = surface_full.split(' ')[3]
             else:
-                surface.append(surface_full.split(' ')[0])
-            
+                surface_temp = surface_full.split(' ')[0]
+            # parce que parfois, la superficie est exprimée en nombres à virgule
+            # donc je dois enlever la virgule pour ne garder que la partie entière
+            if (',' in surface_temp):
+                surface.append(surface_temp.split(',')[0])
+            else:
+                surface.append(surface_temp)
+                
         if ('Chambres' in features_list[i].text):
             nombre_chambres_temp = features_list[i].find_element(By.CSS_SELECTOR, 'span.feature-value').text.strip()
             nombre_chambres.append(nombre_chambres_temp)
@@ -168,7 +203,8 @@ for i in range (len(liste_de_liens)):
     
     images.append(images_list_temp)
     
-    lien_annonce.append(liste_de_liens[i])
+    # lien_annonce.append(liste_de_liens[i])
+    lien_annonce.append(driver.current_url)
 
     driver.close()
 
@@ -190,6 +226,12 @@ print('garage:', len(garage))
 print('images:', len(images))
 print('lien_annonce:', len(lien_annonce))
 print('type_annonce:', len(type_annonce))
+
+end_time = time.time()
+elapsed_time = end_time - start_time
+minutes = elapsed_time // 60
+
+print(f'Il s est écoulé {minutes} minutes depuis le début du scraping')
 
 data_dict = {
     'title': title if isinstance(title, list) else [title],
