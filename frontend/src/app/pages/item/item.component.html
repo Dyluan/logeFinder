@@ -18,7 +18,7 @@
             <div class="imgBigContainer">
                 <p-galleria 
                     [value]="galleriaImages" 
-                    [containerStyle]="{ 'max-width': '735px', 'border': 'none' }" 
+                    [containerStyle]="{ 'max-width': '800px', 'border': 'none' }" 
                     [numVisible]="5"
                 >
                     <ng-template #item let-item>
@@ -43,7 +43,11 @@
                         </div>
                     </div>
                     <div class="contacter">
-                        <div class="price">{{ appartment.prix }} €</div>
+                        @if (appartment.type_annonce === 'vente') {
+                            <div class="price">{{ appartment.prix | number }} €</div>
+                        } @else {
+                            <div class="price">{{ appartment.prix | number }} €/mois</div>
+                        }
                         <div class="contactButtonContainer">
                             <button type="button" class="contactButton">
                                 <a [href]="appartment.lien_annonce" target="_blank">Contacter l'annonceur</a>
