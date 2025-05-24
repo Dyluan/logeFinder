@@ -83,6 +83,7 @@ img {
 .imgBigContainer {
     width: 735px;
     margin-right: 32px;
+    margin-bottom: 45px;
 }
 .mainImgContainer, .mainImg {
     margin: 0;
