@@ -16,14 +16,18 @@
     <div class="container">
         <div class="left">
             <div class="imgBigContainer">
-                <div class="mainImgContainer">
-                    <div class="mainImg" (click)="openImageModal(0)"><img [src]="appartment.images![0]" (click)="openImageModal(0)" alt="bigImg"></div>
-                </div>
-                <div class="smallImgContainer">
-                    <div class="smallImg" (click)="openImageModal(1)"><img [src]="appartment.images![1]" alt="small image"></div>
-                    <div class="smallImg" (click)="openImageModal(2)"><img [src]="appartment.images![2]" alt="small image"></div>
-                    <div class="smallImg" (click)="openImageModal(3)"><img [src]="appartment.images![3]" alt="small image"></div>
-                </div>
+                <p-galleria 
+                    [value]="galleriaImages" 
+                    [containerStyle]="{ 'max-width': '735px' }" 
+                    [numVisible]="5"
+                >
+                    <ng-template #item let-item>
+                        <img [src]="item.itemImageSrc" style="width:100%" />
+                    </ng-template>
+                    <ng-template #thumbnail let-item>
+                        <img [src]="item.thumbnailImageSrc" />
+                    </ng-template>
+                </p-galleria>
             </div>
             <div class="midPageContainer">
                 <div class="descContainer">
@@ -86,12 +90,3 @@
         <app-footer></app-footer>
     </div>
 </div>
-
-<app-image-modal 
-    #imageModal
-    *ngIf="isModalOpen" 
-    [images]="imageUrls" 
-    [currentIndex]="selectedImageIndex"
-    [isOpen]="isModalOpen"
-    (close)="onModalClose()">
-</app-image-modal>
