@@ -20,9 +20,9 @@
                     <div class="mainImg" (click)="openImageModal(0)"><img [src]="appartment.images![0]" (click)="openImageModal(0)" alt="bigImg"></div>
                 </div>
                 <div class="smallImgContainer">
-                    <div class="smallImg" (click)="openImageModal(1)"><img src="img/big.png" alt="small image"></div>
-                    <div class="smallImg" (click)="openImageModal(2)"><img src="img/test2.jpg" alt="small image"></div>
-                    <div class="smallImg" (click)="openImageModal(3)"><img src="img/small3.png" alt="small image"></div>
+                    <div class="smallImg" (click)="openImageModal(1)"><img [src]="appartment.images![1]" alt="small image"></div>
+                    <div class="smallImg" (click)="openImageModal(2)"><img [src]="appartment.images![2]" alt="small image"></div>
+                    <div class="smallImg" (click)="openImageModal(3)"><img [src]="appartment.images![3]" alt="small image"></div>
                 </div>
             </div>
             <div class="midPageContainer">
@@ -41,10 +41,13 @@
                     <div class="contacter">
                         <div class="price">{{ appartment.prix }} €</div>
                         <div class="contactButtonContainer">
-                            <button type="button" class="contactButton">Contacter l'annonceur</button>
+                            <button type="button" class="contactButton">
+                                <a [href]="appartment.lien_annonce" target="_blank">Contacter l'annonceur</a>
+                            </button>
                         </div>
                     </div>
                     <div class="descTextContainer">{{ appartment.description }}</div>
+                    @if (appartment.adresse !== 'Rue non communiquée') {
                         <div class="mapsLocation">
                             <iframe
                                 width="610"
@@ -56,6 +59,8 @@
                                 [src]="realUrl">
                             </iframe>
                         </div>
+                    }
+                        
                 </div>
             </div>
         </div>
@@ -65,13 +70,14 @@
                     <div class="statsTitle">
                         Caractéristiques
                     </div>
-                    <div class="stat"><b>City:</b> {{ appartment.ville }} <br /> </div>
-                    <div class="stat"><b>Street:</b> {{ appartment.adresse }} <br /> </div>
-                    <div class="stat"><b>Garage(s):</b> {{ appartment.garage }} <br /> </div>
-                    <div class="stat"><b>Type:</b> {{ appartment.type_bien }} <br /> </div>
-                    <div class="stat"><b>Number of rooms:</b> {{ appartment.nombre_chambres }} <br /> </div>
-                    <div class="stat"><b>Total area:</b> {{ appartment.surface }} m2 <br /> </div>
-                    <div class="stat"><b>Parking:</b> {{ appartment.parking }} <br /></div>
+                    <div class="stat"><b>Ville: </b> {{ appartment.ville }} <br /> </div>
+                    <div class="stat"><b>Rue: </b> {{ appartment.adresse }} <br /> </div>
+                    <div class="stat"><b>Garage(s): </b> {{ appartment.garage }} <br /> </div>
+                    <div class="stat"><b>Type: </b> {{ appartment.type_bien }} <br /> </div>
+                    <div class="stat"><b>Nombre de chambres: </b> {{ appartment.nombre_chambres }} <br /> </div>
+                    <div class="stat"><b>Superficie: </b> {{ appartment.surface }} m2 <br /> </div>
+                    <div class="stat"><b>Parking: </b> {{ appartment.parking }} <br /></div>
+                    <div class="stat"><b>Nature de l'offre: </b> {{ appartment.type_annonce }}<br /></div>
                 </div>
             </div>
         </div>

@@ -66,6 +66,10 @@ img {
 .contactButtonContainer {
     margin-right: 24px;
 }
+.contactButtonContainer a {
+    text-decoration: none;
+    color: white;
+}
 .contactButton {
     background-color: #1C3988;
     color: white;
