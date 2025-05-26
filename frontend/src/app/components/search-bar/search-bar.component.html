@@ -6,7 +6,22 @@
     <div class="filtersContainer">
         <div class="filtersTitle">Filter settings</div>
         <div class="filters">
-            
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-map">
+                        <img src="/img/location_icon.png" alt="location icon">
+                    </i>
+                </p-inputgroup-addon>
+                <p-select [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" placeholder="Commune" />
+            </p-inputgroup>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-map">
+                        <img src="/img/building_icon.png" alt="building icon">
+                    </i>
+                </p-inputgroup-addon>
+                <p-select [(ngModel)]="selectedType" [options]="type_annonce" optionLabel="name" placeholder="Type" />
+            </p-inputgroup>
         </div>
     </div>
 </div>
