@@ -8,7 +8,7 @@
     </div>
     
     <div class="searchMenu">
-        <app-search-bar />
+        <app-search-bar (outputFilter)="onFilterChange($event)" />
     </div>
     
     <div class="cardsContainer">

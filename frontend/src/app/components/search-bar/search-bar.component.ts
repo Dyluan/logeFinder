@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
-import { AppartmentService } from '../../services/appartment.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -19,8 +18,6 @@ import { AppartmentService } from '../../services/appartment.service';
   styleUrl: './search-bar.component.css'
 })
 export class SearchBarComponent {
-
-  constructor(private appartmentService: AppartmentService) {}
 
   onclick() {
     const filters: any = {}
@@ -38,17 +35,10 @@ export class SearchBarComponent {
       filters.minRooms = this.selectedNumberOfRooms.name;
     }
 
-    this.appartmentService.searchAppartments(filters).subscribe({
-      next: (results) => {
-        console.log('Résultats reçus : ' + results);
-        // traiter les données reçues ici
-      },
-      error: (err) => {
-        console.log('Erreur lors de la recherche. ', err);
-      }
-    })
+    this.outputFilter.emit(filters);
   }
   // minSurface?: number;
+  outputFilter = output<{}>();
 
   selectedCity: any;
   selectedType: any;

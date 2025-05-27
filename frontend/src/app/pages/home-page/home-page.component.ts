@@ -39,6 +39,19 @@ export class HomePageComponent implements OnInit {
     )
   };
 
+  onFilterChange(filters: any) {
+    this.appartmentService.searchAppartments(filters).subscribe({
+      next: (data) => {
+        console.log('Résultats reçus : ' + data.length);
+        this.appartments = data;
+        this.areDataLoaded = true;
+      },
+      error: (err) => {
+        console.log('Erreur lors de la recherche. ', err);
+      }
+    })
+  }
+
   title = 'Trouver un appartement';
   subtitle = 'Trouvez un appartement à louer ou à vendre';
 

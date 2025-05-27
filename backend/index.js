@@ -30,7 +30,6 @@ app.get('/appartments', async (req, res) => {
 app.get('/appartments/search', async (req, res) => {
     try {
         const { maxPrice, city, minRooms, type_location } = req.query;
-        // console.log(req.query)
         let query = 'SELECT * FROM biens_immobiliers WHERE 1=1';
         const params = [];
 
