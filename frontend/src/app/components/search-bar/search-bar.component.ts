@@ -23,19 +23,28 @@ export class SearchBarComponent {
   constructor(private appartmentService: AppartmentService) {}
 
   onclick() {
-    console.log('Calling my service');
-    this.appartmentService.searchAppartments({
-      maxPrice: this.selectedPrice,
-      city: this.selectedCity.name,
-      minRooms: this.selectedNumberOfRooms.name,
-      type_location: this.selectedType.name
-    }).subscribe({
+    const filters: any = {}
+
+    if (this.selectedPrice) {
+      filters.maxPrice = this.selectedPrice;
+    }
+    if (this.selectedCity?.name) {
+      filters.city = this.selectedCity.name;
+    }
+    if (this.selectedType?.name) {
+      filters.type_location = this.selectedType.name;
+    }
+    if (this.selectedNumberOfRooms?.name) {
+      filters.minRooms = this.selectedNumberOfRooms.name;
+    }
+
+    this.appartmentService.searchAppartments(filters).subscribe({
       next: (results) => {
         console.log('Résultats reçus : ' + results);
         // traiter les données reçues ici
       },
       error: (err) => {
-        console.log('Erreur lors de la recherche');
+        console.log('Erreur lors de la recherche. ', err);
       }
     })
   }

@@ -29,7 +29,8 @@ app.get('/appartments', async (req, res) => {
 
 app.get('/appartments/search', async (req, res) => {
     try {
-        const { maxPrice, city, rooms, type_location } = req.query;
+        const { maxPrice, city, minRooms, type_location } = req.query;
+        // console.log(req.query)
         let query = 'SELECT * FROM biens_immobiliers WHERE 1=1';
         const params = [];
 
@@ -41,16 +42,17 @@ app.get('/appartments/search', async (req, res) => {
             params.push(city);
             query += ` AND ville = $${params.length}`;
         }
-        if (rooms) {
-            params.push(rooms);
-            query += ` AND nombre_chambres = $${params.length}`;
+        if (minRooms) {
+            params.push(minRooms);
+            query += ` AND nombre_chambres >= $${params.length}`;
         }
         if (type_location) {
-            params.push(type_location);
+            //type is either 'Location' or 'Vente'. Database type_location is in lowercase
+            params.push(type_location.toLowerCase());
             query += ` AND type_annonce = $${params.length}`;
         }
-        console.log('Query:', query, 'Params:', params);
         const result = await pool.query(query, params);
+        console.log('Search results : ', result.rows.length);
         res.json(result.rows);
     }
     catch(error) {
