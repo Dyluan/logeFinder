@@ -1,7 +1,10 @@
 <div class="main">
     <div class="searchContainer">
         <input type="text" class="search-bar" placeholder="Enter a keyword">
-        <button type="button" class="searchButton"><img src="img/searchIcon.png" (click)="onclick()" alt="" />Search</button>
+        <button type="button" class="searchButton" (click)="onclick()">
+            <img src="img/searchIcon.png" alt="" />
+            Search
+        </button>
     </div>
     <div class="filtersContainer">
         <div class="filtersTitle">Filter settings</div>
@@ -21,6 +24,19 @@
                     </i>
                 </p-inputgroup-addon>
                 <p-select [(ngModel)]="selectedType" [options]="type_annonce" optionLabel="name" placeholder="Type" />
+            </p-inputgroup>
+            <p-inputgroup>
+                <p-inputgroup-addon>$</p-inputgroup-addon>
+                <p-inputnumber [(ngModel)]="selectedPrice" placeholder="Prix maximum" />
+                <p-inputgroup-addon>.00</p-inputgroup-addon>
+            </p-inputgroup>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-map">
+                        <img src="/img/bed.png" alt="bed icon">
+                    </i>
+                </p-inputgroup-addon>
+                <p-select [(ngModel)]="selectedNumberOfRooms" [options]="number_of_rooms" optionLabel="name" placeholder="Nombre de chambres min." />
             </p-inputgroup>
         </div>
     </div>

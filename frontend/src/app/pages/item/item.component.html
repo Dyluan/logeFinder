@@ -20,6 +20,8 @@
                     [value]="galleriaImages" 
                     [containerStyle]="{ 'max-width': '800px', 'border': 'none' }" 
                     [numVisible]="5"
+                    [circular]="true"
+                    [showItemNavigators]="true"
                 >
                     <ng-template #item let-item>
                         <img [src]="item.itemImageSrc" style="width:100%" />

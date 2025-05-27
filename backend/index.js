@@ -27,6 +27,38 @@ app.get('/appartments', async (req, res) => {
     console.log('appartments fetched');
 })
 
+app.get('/appartments/search', async (req, res) => {
+    try {
+        const { maxPrice, city, rooms, type_location } = req.query;
+        let query = 'SELECT * FROM biens_immobiliers WHERE 1=1';
+        const params = [];
+
+        if (maxPrice) {
+            params.push(maxPrice);
+            query += ` AND prix <= $${params.length}`
+        }
+        if (city) {
+            params.push(city);
+            query += ` AND ville = $${params.length}`;
+        }
+        if (rooms) {
+            params.push(rooms);
+            query += ` AND nombre_chambres = $${params.length}`;
+        }
+        if (type_location) {
+            params.push(type_location);
+            query += ` AND type_annonce = $${params.length}`;
+        }
+        console.log('Query:', query, 'Params:', params);
+        const result = await pool.query(query, params);
+        res.json(result.rows);
+    }
+    catch(error) {
+        console.log('Erreur lors de la requête', error);
+        res.status(500).json({ error: error.message });
+    }
+}) 
+
 app.get('/appartments/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -43,6 +75,8 @@ app.get('/appartments/:id', async (req, res) => {
         res.status(500).json({ error: error.message});
     }
 });
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
