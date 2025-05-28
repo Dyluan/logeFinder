@@ -15,7 +15,7 @@
                         <img src="/img/location_icon.png" alt="location icon">
                     </i>
                 </p-inputgroup-addon>
-                <p-select [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" placeholder="Commune" />
+                <p-multiselect [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Commune(s)" [maxSelectedLabels]="9" styleClass="w-full md:w-80" />
             </p-inputgroup>
             <p-inputgroup>
                 <p-inputgroup-addon>

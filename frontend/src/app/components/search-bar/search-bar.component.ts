@@ -4,6 +4,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @Component({
   selector: 'app-search-bar',
@@ -12,7 +13,8 @@ import { FormsModule } from '@angular/forms';
     InputGroupAddonModule,
     SelectModule,
     FormsModule,
-    InputNumberModule
+    InputNumberModule,
+    MultiSelectModule
   ],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css'
@@ -25,8 +27,8 @@ export class SearchBarComponent {
     if (this.selectedPrice) {
       filters.maxPrice = this.selectedPrice;
     }
-    if (this.selectedCity?.name) {
-      filters.city = this.selectedCity.name;
+    if (this.selectedCity && this.selectedCity.length > 0) {
+      filters.city = this.selectedCity.map(city => city.name);
     }
     if (this.selectedType?.name) {
       filters.type_location = this.selectedType.name;
@@ -40,7 +42,7 @@ export class SearchBarComponent {
   // minSurface?: number;
   outputFilter = output<{}>();
 
-  selectedCity: any;
+  selectedCity: {name: string}[] = [];
   selectedType: any;
   selectedPrice: any;
   selectedNumberOfRooms: any;
