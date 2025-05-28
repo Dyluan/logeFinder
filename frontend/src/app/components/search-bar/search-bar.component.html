@@ -23,7 +23,7 @@
                         <img src="/img/building_icon.png" alt="building icon">
                     </i>
                 </p-inputgroup-addon>
-                <p-select [(ngModel)]="selectedType" [options]="type_annonce" optionLabel="name" placeholder="Type" />
+                <p-select [(ngModel)]="selectedType" [options]="type_annonce" optionLabel="name" placeholder="Type de contrat" />
             </p-inputgroup>
             <p-inputgroup>
                 <p-inputgroup-addon>$</p-inputgroup-addon>
@@ -37,6 +37,22 @@
                     </i>
                 </p-inputgroup-addon>
                 <p-select [(ngModel)]="selectedNumberOfRooms" [options]="number_of_rooms" optionLabel="name" placeholder="Nombre de chambres min." />
+            </p-inputgroup>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-map">
+                        <img src="/img/home.png" alt="home icon">
+                    </i>
+                </p-inputgroup-addon>
+                <p-select [(ngModel)]="selectedTypeBien" [options]="type_bien" optionLabel="name" placeholder="Type de bien" />
+            </p-inputgroup>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-map">
+                        <img src="/img/surface.png" alt="surface icon">
+                    </i></p-inputgroup-addon>
+                <p-inputnumber [(ngModel)]="selectedSurface" placeholder="Superficie min" />
+                <p-inputgroup-addon>m²</p-inputgroup-addon>
             </p-inputgroup>
         </div>
     </div>

@@ -37,9 +37,16 @@ export class SearchBarComponent {
       filters.minRooms = this.selectedNumberOfRooms.name;
     }
 
+    if (this.selectedTypeBien?.name) {
+      filters.type_bien = this.selectedTypeBien.name;
+    }
+    if (this.selectedSurface) {
+      filters.minSurface = this.selectedSurface;
+    }
     this.outputFilter.emit(filters);
   }
-  // minSurface?: number;
+
+  // tri
   outputFilter = output<{}>();
 
   selectedCity: {name: string}[] = [];
@@ -47,6 +54,20 @@ export class SearchBarComponent {
   selectedPrice: any;
   selectedNumberOfRooms: any;
 
+  selectedTypeBien: any;
+  selectedGarage: any;
+  selectedSurface: any;
+  selectedTitle: any;
+
+  garage = [
+    {name: 'Oui'},
+    {name: 'Non'}
+  ]
+  type_bien = [
+    {name: 'Maison'},
+    {name: 'Appartement'},
+    {name: 'Villa'}
+  ]
   number_of_rooms = [
     {name: '1'},
     {name: '2'},

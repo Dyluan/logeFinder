@@ -29,8 +29,8 @@ app.get('/appartments', async (req, res) => {
 
 app.get('/appartments/search', async (req, res) => {
     try {
-        const { maxPrice, city, minRooms, type_location } = req.query;
-        // console.log('Received query : ', req.query);
+        const { maxPrice, minSurface, city, minRooms, type_location, type_bien } = req.query;
+        // console.log(req.query.search);
         let query = 'SELECT * FROM biens_immobiliers WHERE 1=1';
         const params = [];
 
@@ -55,7 +55,20 @@ app.get('/appartments/search', async (req, res) => {
             params.push(type_location.toLowerCase());
             query += ` AND type_annonce = $${params.length}`;
         }
+        //somehow, this condition is making the server close.
+        if (minSurface) {
+            const temp_minSurface = parseInt(minSurface);
+            params.push(temp_minSurface);
+            query += ` AND surface >= $${params.length}`
+        }
+        // //somehow, this condition is making the server close.
+        if (type_bien) {
+            const temp_type_bien = type_bien.toLowerCase().trim();
+            params.push(temp_type_bien);
+            query += ` AND type_bien ILIKE $${params.length}`;
+        }
         const result = await pool.query(query, params);
+        console.log('Query: ', query)
         console.log('Search results : ', result.rows.length);
         res.json(result.rows);
     }
