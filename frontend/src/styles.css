@@ -7,5 +7,7 @@
 
 h1{
     color: ligth-dark(var(--text-color-light), var(--text-color-dark)); 
-
+}
+.p-iconfield {
+    display: flex !important;
 }
