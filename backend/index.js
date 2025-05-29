@@ -29,7 +29,7 @@ app.get('/appartments', async (req, res) => {
 
 app.get('/appartments/search', async (req, res) => {
     try {
-        const { maxPrice, minSurface, city, minRooms, type_location, type_bien, garage, tri } = req.query;
+        const { maxPrice, minSurface, city, minRooms, type_location, type_bien, garage, tri, textSearch } = req.query;
         // console.log(req.query.search);
         let query = 'SELECT * FROM biens_immobiliers WHERE 1=1';
         const params = [];
@@ -74,6 +74,13 @@ app.get('/appartments/search', async (req, res) => {
             }
             params.push(garageValue);
             query += ` AND garage = $${params.length}`;
+        }
+        if (textSearch) {
+            const searchText = textSearch.trim();
+            if (searchText) {
+                params.push(`%${searchText}%`);
+                query += ` AND title ILIKE $${params.length}`;
+            }
         }
         if (tri) {
             switch(tri) {

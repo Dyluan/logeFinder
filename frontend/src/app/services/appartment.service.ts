@@ -29,6 +29,7 @@ export class AppartmentService {
     type_bien?: string;
     garage?: string;
     tri?: string;
+    textSearch?: string;
     }): Observable<Appartement[]> {
       let params = new HttpParams();
       if (filters.maxPrice) {
@@ -55,8 +56,9 @@ export class AppartmentService {
       if (filters.tri) {
         params = params.set('tri', filters.tri);
       }
+      if (filters.textSearch) {
+        params = params.set('textSearch', filters.textSearch);
+      }
       return this.http.get<Appartement[]>(`${this.apiUrl}/search`, { params });
   }
-
-
 }

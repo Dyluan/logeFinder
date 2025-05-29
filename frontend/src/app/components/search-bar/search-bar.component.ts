@@ -21,6 +21,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
 })
 export class SearchBarComponent {
 
+  searchValue: string = '';
+
   onclick() {
     const filters: any = {}
 
@@ -48,6 +50,10 @@ export class SearchBarComponent {
     if (this.selectedTri?.name) {
       filters.tri = this.selectedTri.name;
     }
+    if (this.searchValue) {
+      filters.textSearch = this.searchValue;
+    }
+
     this.outputFilter.emit(filters);
   }
 
