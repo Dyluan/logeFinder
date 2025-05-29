@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { environment } from '../../../environments/environment.development';
 import { GalleriaModule } from 'primeng/galleria';
+import { BoolPipe } from '../../pipes/bool.pipe';
 
 @Component({
   selector: 'app-item',
@@ -18,6 +19,7 @@ import { GalleriaModule } from 'primeng/galleria';
     FooterComponent,
     CommonModule,
     GalleriaModule,
+    BoolPipe,
   ],
   templateUrl: './item.component.html',
   styleUrl: './item.component.css'
