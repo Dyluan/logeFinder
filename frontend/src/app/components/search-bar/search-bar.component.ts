@@ -36,7 +36,6 @@ export class SearchBarComponent {
     if (this.selectedNumberOfRooms?.name) {
       filters.minRooms = this.selectedNumberOfRooms.name;
     }
-
     if (this.selectedTypeBien?.name) {
       filters.type_bien = this.selectedTypeBien.name;
     }
@@ -45,6 +44,9 @@ export class SearchBarComponent {
     }
     if (this.selectedGarage?.name) {
       filters.garage = this.selectedGarage.name;
+    }
+    if (this.selectedTri?.name) {
+      filters.tri = this.selectedTri.name;
     }
     this.outputFilter.emit(filters);
   }
@@ -56,12 +58,20 @@ export class SearchBarComponent {
   selectedType: any;
   selectedPrice: any;
   selectedNumberOfRooms: any;
-
   selectedTypeBien: any;
   selectedGarage: any;
   selectedSurface: any;
   selectedTitle: any;
+  selectedTri: any;
 
+  tri = [
+    {name: 'Prix croissant'},
+    {name: 'Prix décroissant'},
+    {name: 'Superficie croissant'},
+    {name: 'Superficie décroissant'},
+    {name: 'Nb chambres croissant'},
+    {name: 'Nb chambres décroissant'}
+  ]
   garage = [
     {name: 'Oui'},
     {name: 'Non'}

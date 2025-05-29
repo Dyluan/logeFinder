@@ -29,7 +29,7 @@ app.get('/appartments', async (req, res) => {
 
 app.get('/appartments/search', async (req, res) => {
     try {
-        const { maxPrice, minSurface, city, minRooms, type_location, type_bien, garage } = req.query;
+        const { maxPrice, minSurface, city, minRooms, type_location, type_bien, garage, tri } = req.query;
         // console.log(req.query.search);
         let query = 'SELECT * FROM biens_immobiliers WHERE 1=1';
         const params = [];
@@ -74,6 +74,30 @@ app.get('/appartments/search', async (req, res) => {
             }
             params.push(garageValue);
             query += ` AND garage = $${params.length}`;
+        }
+        if (tri) {
+            switch(tri) {
+                case 'Prix croissant':
+                    query += ' ORDER BY prix ASC';
+                    break;
+                case 'Prix décroissant':
+                    query += ' ORDER BY prix DESC';
+                    break;
+                case 'Superficie croissant':
+                    query += ' ORDER BY surface ASC';
+                    break;
+                case 'Superficie décroissant':
+                    query += ' ORDER BY surface DESC';
+                    break;
+                case 'Nb chambres croissant':
+                    query += ' ORDER BY nombre_chambres ASC';
+                    break;
+                case 'Nb chambres décroissant':
+                    query += ' ORDER BY nombre_chambres DESC';
+                    break;
+                default:
+                    break;
+            }
         }
 
         const result = await pool.query(query, params);

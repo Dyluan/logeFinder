@@ -62,6 +62,14 @@
                 </p-inputgroup-addon>
                 <p-select [(ngModel)]="selectedGarage" [options]="garage" optionLabel="name" placeholder="Avec garage?" />
             </p-inputgroup>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-map">
+                        <img src="/img/filter.png" alt="filter icon">
+                    </i>
+                </p-inputgroup-addon>
+                <p-select [(ngModel)]="selectedTri" [options]="tri" optionLabel="name" placeholder="Trier par" />
+            </p-inputgroup>
         </div>
     </div>
 </div>
