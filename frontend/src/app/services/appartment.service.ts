@@ -27,6 +27,7 @@ export class AppartmentService {
     minRooms?: number;
     type_location?: string;
     type_bien?: string;
+    garage?: string;
     }): Observable<Appartement[]> {
       let params = new HttpParams();
       if (filters.maxPrice) {
@@ -36,16 +37,19 @@ export class AppartmentService {
         params = params.set('minSurface', filters.minSurface)
       }
       if (filters.city) {
-        params = params.set('city', filters.city)
+        params = params.set('city', filters.city);
       }
       if (filters.minRooms) {
-        params = params.set('minRooms', filters.minRooms)
+        params = params.set('minRooms', filters.minRooms);
       }
       if (filters.type_location) {
-        params = params.set('type_location', filters.type_location)
+        params = params.set('type_location', filters.type_location);
       }
       if (filters.type_bien) {
-        params = params.set('type_bien', filters.type_bien)
+        params = params.set('type_bien', filters.type_bien);
+      }
+      if (filters.garage) {
+        params = params.set('garage', filters.garage);
       }
       return this.http.get<Appartement[]>(`${this.apiUrl}/search`, { params });
   }

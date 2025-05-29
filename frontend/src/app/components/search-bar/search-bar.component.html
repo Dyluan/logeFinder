@@ -15,7 +15,7 @@
                         <img src="/img/location_icon.png" alt="location icon">
                     </i>
                 </p-inputgroup-addon>
-                <p-multiselect [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Commune(s)" [maxSelectedLabels]="9" styleClass="w-full md:w-80 min-width: 256px" />
+                <p-multiselect [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Commune(s)" [maxSelectedLabels]="9" styleClass="w-full md:w-80" />
             </p-inputgroup>
             <p-inputgroup>
                 <p-inputgroup-addon>
@@ -26,7 +26,7 @@
                 <p-select [(ngModel)]="selectedType" [options]="type_annonce" optionLabel="name" placeholder="Type de contrat" />
             </p-inputgroup>
             <p-inputgroup>
-                <p-inputgroup-addon>$</p-inputgroup-addon>
+                <p-inputgroup-addon>€</p-inputgroup-addon>
                 <p-inputnumber [(ngModel)]="selectedPrice" placeholder="Prix maximum" />
                 <p-inputgroup-addon>.00</p-inputgroup-addon>
             </p-inputgroup>
@@ -53,6 +53,14 @@
                     </i></p-inputgroup-addon>
                 <p-inputnumber [(ngModel)]="selectedSurface" placeholder="Superficie min" />
                 <p-inputgroup-addon>m²</p-inputgroup-addon>
+            </p-inputgroup>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-map">
+                        <img src="/img/car.png" alt="garage icon">
+                    </i>
+                </p-inputgroup-addon>
+                <p-select [(ngModel)]="selectedGarage" [options]="garage" optionLabel="name" placeholder="Avec garage?" />
             </p-inputgroup>
         </div>
     </div>

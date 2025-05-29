@@ -43,6 +43,9 @@ export class SearchBarComponent {
     if (this.selectedSurface) {
       filters.minSurface = this.selectedSurface;
     }
+    if (this.selectedGarage?.name) {
+      filters.garage = this.selectedGarage.name;
+    }
     this.outputFilter.emit(filters);
   }
 
