@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.main {
+    display: flex;
+    flex-direction: row;
+    font-family: 'Merriweather';
+}
+.left {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.right {
+    width: 50%;
+    overflow: hidden;
+}
+.right img {
+    margin: 0;
+    padding: 0;
+    width: 200%;
+    height: 100%;
+    box-sizing: border-box;
+    object-fit: cover;
+    transform: translate(-50%); /*décale l'image vers la gauche, à utiliser avec width 200% pour le résultat attendu */
+}
+.titleContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 19px;
+    padding-top: 124px;
+}
+.title {
+    font-weight: bold;
+    font-size: 48px;
+    color: black;
+}
+.logo img {
+    cursor: pointer;
+}

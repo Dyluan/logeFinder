@@ -49,3 +49,25 @@
 .crossContainer {
     cursor: pointer;
 }
+.menuContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.connectionButton {
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #091638;
+    border-radius: 5%;
+    border-style: none;
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.connectionButton:hover {
+    background-color: #6E8AE9;
+}
+.connectionButton a {
+    text-decoration: none;
+    color: white;
+}
