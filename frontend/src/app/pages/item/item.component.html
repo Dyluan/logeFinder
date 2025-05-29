@@ -1,8 +1,7 @@
-<div class="header">
-    <app-header (menuClicked)="onHeaderMenuClick()"></app-header>
-</div>
-
-<div class="main">    
+<div class="main">
+    <div class="header">
+        <app-header (menuClicked)="onHeaderMenuClick()"></app-header>
+    </div>
     @if (isMenuOpen) {
         <div class="menu">
             <app-menu (closeMenu)="onMenuCloseClick()"></app-menu>

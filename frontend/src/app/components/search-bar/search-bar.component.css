@@ -3,6 +3,7 @@
 .main {
     background-color: #F3F3FA;
     padding-top: 40px;
+    padding-bottom: 40px;
     margin-top: 40px;
 
     display: flex;
