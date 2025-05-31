@@ -42,4 +42,7 @@ export class AuthService {
       }
     })
   }
+  getUserProfile() {
+    return this.OAuthService.getIdentityClaims();
+  }
 }

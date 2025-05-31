@@ -9,9 +9,9 @@
         @if (isLoggedIn) {
         <div class="googleProfile">
             <div class="profilePhoto">
-                <img [src]="userProfile.picture" alt="Profile Picture" />
+                <img [src]="userProfile['picture']" alt="Profile Picture" />
             </div>
-            <div class="profileName">{{ userProfile.given_name }}</div>
+            <div class="profileName">{{ userProfile['given_name'] }}</div>
         </div>
         }
         @else {

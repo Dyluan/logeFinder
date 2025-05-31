@@ -9,20 +9,24 @@ import { OnInit } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   constructor(private mainService: MainService, private authService: AuthService) {}
 
-  userProfile: any;
-
-  ngOnInit(): void {
-      if (this.authService.identityClaims) {
-        this.authService.userProfile.subscribe((profile) => {
-          this.userProfile = profile;
-          console.log('Userprofile : ', profile)
-        })
-      }
+  get userProfile() {
+    return this.authService.getUserProfile();
   }
+
+  // userProfile: any;
+
+  // ngOnInit(): void {
+  //     if (this.authService.identityClaims) {
+  //       this.authService.userProfile.subscribe((profile) => {
+  //         this.userProfile = profile;
+  //         console.log('Userprofile : ', profile)
+  //       })
+  //     }
+  // }
 
   get isLoggedIn() {
     return !!this.authService.identityClaims;
