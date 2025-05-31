@@ -6,6 +6,19 @@
         <div class="title">Futur Immobilier</div>
     </div>
     <div class="right">
+        @if (isLoggedIn) {
+        <div class="googleProfile">
+            <div class="profilePhoto">
+                <img [src]="userProfile.picture" alt="Profile Picture" />
+            </div>
+            <div class="profileName">{{ userProfile.given_name }}</div>
+        </div>
+        }
+        @else {
+            <div class="profileError">
+                Not logged in
+            </div>
+        }
         <div class="menuContainer">
             <button type="button" class="menuButton" (click)="onMenuClick()">
                 <img src="img/menu.png" alt="menu" />

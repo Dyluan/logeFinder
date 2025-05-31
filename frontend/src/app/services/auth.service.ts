@@ -18,7 +18,8 @@ export class AuthService {
   }
 
   login() {
-    this.OAuthService.initLoginFlow();
+    // this.OAuthService.initLoginFlow();
+    this.OAuthService.initCodeFlow();
   }
 
   logout() {
@@ -37,7 +38,7 @@ export class AuthService {
     const url = 'https://www.googleapis.com/oauth2/v2/userinfo';
     return this.http.get(url, {
       headers: {
-        Authorization: `Bearer ${this.accesToken}`
+        Authorization: `Bearer ${this.accesToken}`,
       }
     })
   }

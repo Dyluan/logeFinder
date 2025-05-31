@@ -1,6 +1,10 @@
 import { AuthConfig } from 'angular-oauth2-oidc';
 
-export const authCodeFlowConfig: AuthConfig = {
+interface MyAuthConfig extends AuthConfig {
+  usePkce?: boolean;
+}
+
+export const authCodeFlowConfig: MyAuthConfig = {
     // Url of the Identity Provider
   // issuer: 'https://idsvr4.azurewebsites.net',
   issuer: 'https://accounts.google.com',
@@ -11,7 +15,7 @@ export const authCodeFlowConfig: AuthConfig = {
 
     // The SPA's id. The SPA is registerd with this id at the auth-server
     // clientId: 'server.code',
-  clientId: '356307241256-9ssrufgsa8dn36pi68105tffv9krfqhk.apps.googleusercontent.com',
+  clientId: '356307241256-n22vluvf11ff27ne5smq0erh5vpcsq90.apps.googleusercontent.com',
 
     // Just needed if your auth server demands a secret. In general, this
     // is a sign that the auth server is not configured with SPAs in mind
@@ -27,6 +31,8 @@ export const authCodeFlowConfig: AuthConfig = {
     // Important: Request offline_access to get a refresh token
     // The api scope is a usecase specific one
   scope: 'openid profile email',
+  
+  usePkce: true,
 
   showDebugInformation: true,
 };
