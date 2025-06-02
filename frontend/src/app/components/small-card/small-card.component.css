@@ -70,4 +70,11 @@
 }
 .favorite {
     margin-right: 9px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+.favorite img {
+    width: 100%;
+    height: 100%;
 }

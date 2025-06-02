@@ -57,3 +57,10 @@
     height: 100%;
     object-fit: cover;
 }
+.favoris a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-family: 'Open Sans';
+    font-weight: 600;
+}

@@ -39,7 +39,7 @@
     gap: 35px;
 }
 .searchMenu {
-    width: 1250px;
+    max-width: 1250px;
 }
 .footer {
     width: 1250px;

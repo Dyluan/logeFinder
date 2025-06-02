@@ -17,6 +17,20 @@ export class SmallCardComponent {
   newId = input<number>();
   newImg = input<string>('');
 
+  isFavoriteIconClicked: boolean = false;
+
+  favoriteIconSrc: string = '/img/notFavori.png';
+
+  onClick() {
+    this.isFavoriteIconClicked = !this.isFavoriteIconClicked;
+    if (this.isFavoriteIconClicked) {
+      this.favoriteIconSrc = '/img/favori.png';
+    }
+    else {
+      this.favoriteIconSrc = '/img/notFavori.png';
+    }
+  }
+
   navigateToDetails() {
     // this.route.navigate(['/item', this.id]);
     if (this.newId() === undefined || this.newId() === null) {

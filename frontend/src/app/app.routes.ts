@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ItemComponent } from './pages/item/item.component';
 import { LoginComponent } from './pages/login/login.component';
+import { FavorisComponent } from './pages/favoris/favoris.component';
 
 export const routes: Routes = [
     {
@@ -25,4 +26,8 @@ export const routes: Routes = [
         path: 'login',
         component: LoginComponent,
     },
+    {
+        path: 'favoris',
+        component: FavorisComponent,
+    }
 ];

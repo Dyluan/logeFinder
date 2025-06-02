@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+.searchMenu {
+    max-width: 1250px;
+}
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.header {
+    width: 100%;
+}
+.title {
+    margin: 143px 0px 47px 0px;
+    font-size: 52px;
+    font-family: 'Open Sans';
+    font-weight: bold;
+}
+.footer {
+    width: 100%;
+}

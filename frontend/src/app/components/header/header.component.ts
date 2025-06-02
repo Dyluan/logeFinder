@@ -14,6 +14,7 @@ export class HeaderComponent {
   constructor(private mainService: MainService, private authService: AuthService) {}
 
   get userProfile() {
+    console.log('user profile : ', this.authService.getUserProfile());
     return this.authService.getUserProfile();
   }
 

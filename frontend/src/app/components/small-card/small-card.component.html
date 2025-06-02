@@ -12,6 +12,9 @@
     </div>
     <div class="bottom">
         <div class="contact"><img src="img/contact.png" alt="contact"></div>
-        <div class="favorite"><img src="img/favorite.png" alt="favorite"></div>
+        <div class="favorite" (click)="onClick()">
+            <!-- <img src="img/favorite.png" alt="favorite"> -->
+            <img [src]="favoriteIconSrc" alt="favorite icon">
+        </div>
     </div>
 </div>
