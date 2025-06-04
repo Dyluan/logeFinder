@@ -1,6 +1,6 @@
 <div class="main">
     <div class="header">
-        <app-header (menuClicked)="onHeaderMenuClick()"/>
+        <app-header (menuClicked)="onHeaderMenuClick()" (connectedUser)="OnUserConnected($event)"/>
     </div>
     <div class="title-container">
         <h1 class="title">{{ title }}</h1>

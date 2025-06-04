@@ -1,7 +1,6 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, output, OnInit } from '@angular/core';
 import { MainService } from '../../services/main.service';
 import { AuthService } from '../../services/auth.service';
-import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -9,13 +8,21 @@ import { OnInit } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   constructor(private mainService: MainService, private authService: AuthService) {}
 
   get userProfile() {
-    console.log('user profile : ', this.authService.getUserProfile());
+    // console.log('user profile : ', this.authService.getUserProfile());
     return this.authService.getUserProfile();
+  }
+
+  ngOnInit(): void {
+    if (this.authService.identityClaims) {
+      this.authService.userProfile.subscribe((profile) => {
+        this.connectedUser.emit(profile);
+      })
+    }
   }
 
   // userProfile: any;
@@ -28,6 +35,8 @@ export class HeaderComponent {
   //       })
   //     }
   // }
+
+  connectedUser = output<any>();
 
   get isLoggedIn() {
     return !!this.authService.identityClaims;

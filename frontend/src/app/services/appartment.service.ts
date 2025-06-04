@@ -20,6 +20,12 @@ export class AppartmentService {
     return this.http.get<Appartement>(`${this.apiUrl}/${id}`);
   }
 
+  getFavorites(email: string) {
+    let params = new HttpParams();
+    params = params.set('email', email);
+    return this.http.get<Appartement>(`${this.apiUrl}/favorites`, { params });
+  }
+
   searchAppartments(filters: {
     maxPrice?: number;
     minSurface?: number;

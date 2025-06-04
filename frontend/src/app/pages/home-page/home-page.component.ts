@@ -7,6 +7,7 @@ import { MenuComponent } from '../../components/menu/menu.component';
 import { AppartmentService } from '../../services/appartment.service';
 import { Appartement } from '../../models/appartement';
 import { CommonModule } from '@angular/common';
+import { LoginService } from '../../services/login.service';
 
 
 @Component({
@@ -26,15 +27,19 @@ export class HomePageComponent implements OnInit {
 
   appartments: Appartement[] = [];
   areDataLoaded: boolean = false;
+  connectedUser: any;
 
-  constructor(private appartmentService: AppartmentService) {}
+  constructor(
+    private appartmentService: AppartmentService,
+    private loginService: LoginService
+    ) {}
 
   ngOnInit() {
     this.appartmentService.getAppartments().subscribe(
       data => {
         this.appartments = data;
         this.areDataLoaded = true;
-        console.log('oninit' , this.appartments);
+        // console.log('oninit' , this.appartments);
       }
     )
   };
@@ -63,4 +68,29 @@ export class HomePageComponent implements OnInit {
   onMenuCloseClick() {
     this.isMenuOpen = false;
   }
+
+  OnUserConnected(user: any) {
+    console.log('connected user : ', user)
+    this.connectedUser = user;
+
+    if (user && user.email) {
+      this.loginService.isUserRegistered(user.email).subscribe({
+        next: (exists: boolean) => {
+          if (exists) {
+            console.log('Utilisateur déjà présent dans la BDD');
+          }
+          else {
+            console.log('Utilisateur pas encore enregistré dans la BDD');
+            this.loginService.registerThisUser(user.email, user.given_name).subscribe((_) => {
+              console.log('Utilisateur enregistré :)');
+            })
+          }
+        },
+        error: (error) => {
+          console.log('Erreur lors du user check', error);
+        }
+      })
+    }
+  }
+
 }

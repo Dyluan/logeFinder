@@ -27,6 +27,17 @@ app.get('/appartments', async (req, res) => {
     console.log('appartments fetched');
 })
 
+app.get('/appartments/favorites', async (req,res) => {
+    try {
+        const email = req.query;
+        //need to define the query here
+    }
+    catch(error) {
+        console.log('Erreur lors de la requête. ', error);
+        res.status(500).json({error: error.message});
+    }
+})
+
 app.get('/appartments/search', async (req, res) => {
     try {
         const { maxPrice, minSurface, city, minRooms, type_location, type_bien, garage, tri, textSearch } = req.query;
@@ -135,6 +146,28 @@ app.get('/appartments/:id', async (req, res) => {
     }
 });
 
+app.get('/user', async(req, res) => {
+    const { email } = req.query;
+    const result = await pool.query('SELECT * FROM utilisateurs where email = $1', [email]);
+
+    console.log('Checking if user is registered already : ', req.query);
+
+    if (result.rows.length === 0) {
+        return res.status(404).json({ message: 'Aucun utilisateur trouvé' });
+    }
+    else {
+        return res.json(result.rows[0]);
+    }
+})
+
+app.post('/user/sign', async(req, res) => {
+    // const { email, nom } = req.query;
+    const { email, nom } = req.body;
+    console.log('Tryin to create a new user with name ', nom, ' and email ', email);
+    const insertResult = await pool.query('INSERT INTO utilisateurs (email,nom) VALUES ($1, $2) RETURNING *', [email, nom]);
+    console.log('Nouvel utilisateur créé: ', insertResult.rows[0]);
+    res.json(insertResult.rows[0]);
+})
 
 
 const PORT = process.env.PORT || 3000;

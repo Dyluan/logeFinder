@@ -18,12 +18,19 @@ import { MenuComponent } from '../../components/menu/menu.component';
 export class FavorisComponent {
 
   isMenuOpen = false;
+  //je devrais probablement définir un type User
+  connectedUser: any;
 
   onHeaderMenuClick() {
     this.isMenuOpen = !this.isMenuOpen;
   }
   onMenuCloseClick() {
     this.isMenuOpen = false;
+  }
+
+  OnUserConnected(user: any) {
+    console.log('favoris user : ', user)
+    this.connectedUser = user;
   }
 
 }
