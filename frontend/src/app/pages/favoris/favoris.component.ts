@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { MenuComponent } from '../../components/menu/menu.component';
 import { AppartmentService } from '../../services/appartment.service';
 import { Appartement } from '../../models/appartement';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-favoris',
@@ -17,20 +18,17 @@ import { Appartement } from '../../models/appartement';
   templateUrl: './favoris.component.html',
   styleUrl: './favoris.component.css'
 })
-export class FavorisComponent implements OnInit {
+export class FavorisComponent {
 
-  constructor(private appartmentService: AppartmentService) {}
+  constructor(
+    private appartmentService: AppartmentService,
+    private loginService: LoginService
+    ) {}
 
   appartments: Appartement[] = [];
   isMenuOpen = false;
   //je devrais probablement définir un type User
   connectedUser: any;
-
-  ngOnInit(): void {
-    this.appartmentService.getFavorites(this.connectedUser.email).subscribe((appartments) => {
-      this.appartments = appartments;
-    })
-  }
 
   onHeaderMenuClick() {
     this.isMenuOpen = !this.isMenuOpen;
@@ -40,8 +38,16 @@ export class FavorisComponent implements OnInit {
   }
 
   OnUserConnected(user: any) {
-    console.log('favoris user : ', user)
     this.connectedUser = user;
+
+    if (user && user.email) {
+      this.loginService.getUserId(user.email).subscribe((id) => {
+        this.appartmentService.getFavorites(id).subscribe((appartements) => {
+          this.appartments = appartements;
+          console.log(appartements);
+        })
+      })
+    }
   }
 
 }

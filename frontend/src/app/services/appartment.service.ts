@@ -20,9 +20,9 @@ export class AppartmentService {
     return this.http.get<Appartement>(`${this.apiUrl}/${id}`);
   }
 
-  getFavorites(email: string): Observable<Appartement[]> {
+  getFavorites(userId: string): Observable<Appartement[]> {
     let params = new HttpParams();
-    params = params.set('email', email);
+    params = params.set('userId', userId);
     return this.http.get<Appartement[]>(`${this.apiUrl}/favorites`, { params });
   }
   

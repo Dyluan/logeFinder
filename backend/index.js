@@ -27,17 +27,6 @@ app.get('/appartments', async (req, res) => {
     console.log('appartments fetched');
 })
 
-app.get('/appartments/favorites', async (req,res) => {
-    try {
-        const email = req.query;
-        //need to define the query here
-    }
-    catch(error) {
-        console.log('Erreur lors de la requête. ', error);
-        res.status(500).json({error: error.message});
-    }
-})
-
 app.get('/appartments/search', async (req, res) => {
     try {
         const { maxPrice, minSurface, city, minRooms, type_location, type_bien, garage, tri, textSearch } = req.query;
@@ -129,6 +118,24 @@ app.get('/appartments/search', async (req, res) => {
     }
 }) 
 
+app.get('/appartments/favorites', async(req, res) => {
+    try {
+        const { userId } = req.query;
+        console.log('I request the favorites!!');
+        const result = await pool.query('SELECT b.* FROM biens_immobiliers b JOIN favoris f ON f.bien_id = b.id WHERE f.utilisateur_id = $1', [userId]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'Aucuns favoris' });
+        }
+        res.json(result.rows);
+
+    }catch (error) {
+        console.error('Erreur lors de la récupération des favoris:', error);
+        res.status(500).json({ error: error.message });
+    }
+    
+});
+
 app.get('/appartments/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -216,11 +223,6 @@ app.delete('/appartments/favorites/delete', async(req, res) => {
         res.status(500).json({ error: error.message });
     }
 })
-
-// app.get('/favorites', async(req, res) => {
-//     const { email } = req.query;
-//     const result = await pool.query('SELECT * FROM utilisateurs where email = $1', [email]);
-// })
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
