@@ -199,6 +199,24 @@ app.post('/appartments/favorites/new', async (req, res) => {
     }
 })
 
+app.delete('/appartments/favorites/delete', async(req, res) => {
+    try {
+        const { userId, itemId } = req.query;
+        console.log('Trying to delete item', itemId);
+        const deleteResult = await pool.query('DELETE FROM favoris WHERE utilisateur_id = $1 AND bien_id = $2 RETURNING *', [userId, itemId]);
+
+        if (deleteResult.rows.length === 0) {
+            return res.status(404).json({ message: 'Favori non trouvé' });
+        }
+
+        console.log('Favori supprimé');
+        res.json({ message: 'Favori supprimé avec succès' });
+    } catch (error) {
+        console.error('Erreur lors de la suppression du favori:', error);
+        res.status(500).json({ error: error.message });
+    }
+})
+
 // app.get('/favorites', async(req, res) => {
 //     const { email } = req.query;
 //     const result = await pool.query('SELECT * FROM utilisateurs where email = $1', [email]);

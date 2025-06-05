@@ -102,14 +102,21 @@ export class HomePageComponent implements OnInit {
     //j'appelle la fonctione getUserId pour récupérer l'ID dans la database en fonction de l'email utilisateur
     this.loginService.getUserId(this.connectedUser.email).subscribe((data) => {
       userId = data;
-      //j'appelle ma fonction addToFavorites pour rajouter le bien aux favoris de l'utilisateur
+      //j'appelle ma fonction addToFavorites pour rajouter le bien aux favoris de l'utilisateur si l'utilisateur a ajouté le bien a ses favoris
       if (params.isFavorite === true) {
         this.appartmentService.addToFavorites(params.itemId, userId).subscribe((_) => {
-          console.log('Rien besoin de return en fait.')
-        })
+          
+        });
+        console.log('Item ajouté aux favoris');
+      }
+      //sinon, l'utilisateur supprime le bien de ses favoris
+      else if(params.isFavorite === false) {
+        this.appartmentService.deleteFromFavorites(userId, params.itemId).subscribe((_) => {
+
+        });
+        console.log('Item supprimé des favoris');
       }
     });
-    console.log('Item ajouté aux favoris');
   }
 
 }

@@ -33,6 +33,15 @@ export class AppartmentService {
     })
   }
 
+  deleteFromFavorites(userId: string, itemId: number): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('userId', userId);
+    params = params.set('itemId', itemId);
+    return this.http.delete(`${this.apiUrl}/favorites/delete`, {
+      params: params
+    })
+  }
+
   searchAppartments(filters: {
     maxPrice?: number;
     minSurface?: number;
