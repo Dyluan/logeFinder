@@ -6,6 +6,7 @@ import { MenuComponent } from '../../components/menu/menu.component';
 import { AppartmentService } from '../../services/appartment.service';
 import { Appartement } from '../../models/appartement';
 import { LoginService } from '../../services/login.service';
+import { SmallCardComponent } from '../../components/small-card/small-card.component';
 
 @Component({
   selector: 'app-favoris',
@@ -13,7 +14,8 @@ import { LoginService } from '../../services/login.service';
     HeaderComponent,
     SearchBarComponent,
     FooterComponent,
-    MenuComponent
+    MenuComponent,
+    SmallCardComponent
   ],
   templateUrl: './favoris.component.html',
   styleUrl: './favoris.component.css'
