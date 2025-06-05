@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { MainService } from '../../services/main.service';
 import { AuthService } from '../../services/auth.service';
 import { OnInit } from '@angular/core';
-import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +14,6 @@ export class LoginComponent implements OnInit{
   constructor (
     private mainService: MainService, 
     private authService: AuthService,
-    private loginService: LoginService
   ) {}
 
   userProfile: any;

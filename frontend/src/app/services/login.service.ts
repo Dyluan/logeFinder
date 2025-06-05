@@ -26,13 +26,16 @@ export class LoginService {
   }
 
   registerThisUser(email: string, nom: string): Observable<any> {
-    let params = new HttpParams;
-    params = params.set('email', email);
-    params = params.set('nom', nom);
-    // return this.http.post(`${this.apiUrl}/sign`, { params });
     return this.http.post(`${this.apiUrl}/sign`, {
       email: email,
       nom: nom
     })
+  }
+
+  //renvoie l'id de notre user dans la database. En fonction de l'email
+  getUserId(email: string): Observable<string> {
+    let params = new HttpParams();
+    params = params.set('email', email);
+    return this.http.get<string>(`${this.apiUrl}/id`, {params})
   }
 }

@@ -1,5 +1,10 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { MainService } from '../../services/main.service';
+
+interface FavoriteEvent {
+  isFavorite: boolean;
+  itemId: any;
+}
 
 @Component({
   selector: 'app-small-card',
@@ -18,6 +23,7 @@ export class SmallCardComponent {
   newImg = input<string>('');
 
   isFavoriteIconClicked: boolean = false;
+  isItemAddedToFavorite = output<FavoriteEvent>();
 
   favoriteIconSrc: string = '/img/notFavori.png';
 
@@ -25,9 +31,17 @@ export class SmallCardComponent {
     this.isFavoriteIconClicked = !this.isFavoriteIconClicked;
     if (this.isFavoriteIconClicked) {
       this.favoriteIconSrc = '/img/favori.png';
+      this.isItemAddedToFavorite.emit({
+        isFavorite: true,
+        itemId: this.newId()
+      });
     }
     else {
       this.favoriteIconSrc = '/img/notFavori.png';
+      this.isItemAddedToFavorite.emit({
+        isFavorite: false,
+        itemId: this.newId()
+      });
     }
   }
 

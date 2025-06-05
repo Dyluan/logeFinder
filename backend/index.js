@@ -119,8 +119,8 @@ app.get('/appartments/search', async (req, res) => {
         }
 
         const result = await pool.query(query, params);
-        console.log('Query: ', query)
-        console.log('Search results : ', result.rows.length);
+        // console.log('Query: ', query)
+        // console.log('Search results : ', result.rows.length);
         res.json(result.rows);
     }
     catch(error) {
@@ -160,6 +160,23 @@ app.get('/user', async(req, res) => {
     }
 })
 
+app.get('/user/id', async (req, res) => {
+    try {
+        const { email } = req.query;
+        const result = await pool.query('SELECT id FROM utilisateurs WHERE email = $1', [email]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'Aucun utilisateur trouvé avec cet email' });
+        }
+
+        console.log('ID utilisateur trouvé:', result.rows[0].id);
+        res.json(result.rows[0].id);
+    } catch (error) {
+        console.error('Erreur lors de la récupération de l\'ID:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 app.post('/user/sign', async(req, res) => {
     // const { email, nom } = req.query;
     const { email, nom } = req.body;
@@ -169,6 +186,23 @@ app.post('/user/sign', async(req, res) => {
     res.json(insertResult.rows[0]);
 })
 
+app.post('/appartments/favorites/new', async (req, res) => {
+    try {
+        const { userId, id } = req.body;
+        console.log('Trying to add real estate good #', id, 'into ', userId, 'favorites');
+        const insertResult = await pool.query('INSERT INTO favoris (utilisateur_id, bien_id) VALUES ($1, $2) ON CONFLICT DO NOTHING RETURNING *', [userId, id]);
+        console.log('Favori ajouté');
+        res.json(insertResult.rows[0])
+    } catch (error) {
+        console.error('Erreur lors de l\'ajout du favori:', error);
+        res.status(500).json({ error: error.message });
+    }
+})
+
+// app.get('/favorites', async(req, res) => {
+//     const { email } = req.query;
+//     const result = await pool.query('SELECT * FROM utilisateurs where email = $1', [email]);
+// })
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
