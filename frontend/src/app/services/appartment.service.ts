@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { filter, Observable } from 'rxjs';
+import { filter, Observable, of } from 'rxjs';
 import { Appartement } from '../models/appartement';
 
 @Injectable({
@@ -40,6 +40,20 @@ export class AppartmentService {
     return this.http.delete(`${this.apiUrl}/favorites/delete`, {
       params: params
     })
+  }
+
+  isFavorite(itemId: number): Observable<boolean> {
+    const userId = localStorage.getItem('userId');
+    // console.log('isFavorite method called. userID:', userId);
+    if (!userId) {
+      return of (false);
+    }
+
+    let params = new HttpParams()
+      .set('userId', userId)
+      .set('itemId', itemId.toString());
+
+    return this.http.get<boolean>(`${this.apiUrl}/favorites/check`, { params });
   }
 
   searchAppartments(filters: {

@@ -1,5 +1,6 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, OnInit } from '@angular/core';
 import { MainService } from '../../services/main.service';
+import { AppartmentService } from '../../services/appartment.service';
 
 interface FavoriteEvent {
   isFavorite: boolean;
@@ -12,9 +13,25 @@ interface FavoriteEvent {
   templateUrl: './small-card.component.html',
   styleUrl: './small-card.component.css'
 })
-export class SmallCardComponent {
+export class SmallCardComponent implements OnInit {
 
-  constructor(private mainService: MainService) {}
+  constructor(
+    private mainService: MainService,
+    private appartmentService: AppartmentService,
+  ) {}
+
+  ngOnInit(): void {
+    // vérifier si l'item est un favori pour l'utilisateur
+      if (this.newId()) {
+        this.appartmentService.isFavorite(this.newId()!).subscribe(
+          isFavorite => {
+            // console.log('isFavorite?', isFavorite, this.newId());
+            this.isFavoriteIconClicked = isFavorite;
+            this.favoriteIconSrc = isFavorite ? '/img/favori.png' : '/img/notFavori.png';
+          }
+        );
+      }
+  }
 
   newTitle = input<string>('');
   newPrice = input<number>();

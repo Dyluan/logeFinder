@@ -121,7 +121,6 @@ app.get('/appartments/search', async (req, res) => {
 app.get('/appartments/favorites', async(req, res) => {
     try {
         const { userId } = req.query;
-        console.log('I request the favorites!!');
         const result = await pool.query('SELECT b.* FROM biens_immobiliers b JOIN favoris f ON f.bien_id = b.id WHERE f.utilisateur_id = $1', [userId]);
 
         if (result.rows.length === 0) {
@@ -134,6 +133,18 @@ app.get('/appartments/favorites', async(req, res) => {
         res.status(500).json({ error: error.message });
     }
     
+});
+
+app.get('/appartments/favorites/check', async (req, res) => {
+    const { userId, itemId } = req.query;
+    // console.log('new method called');
+    try {
+        const result = await pool.query('SELECT EXISTS(SELECT 1 FROM favoris WHERE utilisateur_id = $1 AND bien_id = $2)', [userId, itemId]);
+        res.json(result.rows[0].exists);
+    } catch (error) {
+        console.error('Error checking favorite:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
 });
 
 app.get('/appartments/:id', async (req, res) => {
@@ -157,7 +168,7 @@ app.get('/user', async(req, res) => {
     const { email } = req.query;
     const result = await pool.query('SELECT * FROM utilisateurs where email = $1', [email]);
 
-    console.log('Checking if user is registered already : ', req.query);
+    // console.log('Checking if user is registered already : ', req.query);
 
     if (result.rows.length === 0) {
         return res.status(404).json({ message: 'Aucun utilisateur trouvé' });
@@ -176,7 +187,7 @@ app.get('/user/id', async (req, res) => {
             return res.status(404).json({ message: 'Aucun utilisateur trouvé avec cet email' });
         }
 
-        console.log('ID utilisateur trouvé:', result.rows[0].id);
+        // console.log('ID utilisateur trouvé:', result.rows[0].id);
         res.json(result.rows[0].id);
     } catch (error) {
         console.error('Erreur lors de la récupération de l\'ID:', error);
@@ -187,18 +198,18 @@ app.get('/user/id', async (req, res) => {
 app.post('/user/sign', async(req, res) => {
     // const { email, nom } = req.query;
     const { email, nom } = req.body;
-    console.log('Tryin to create a new user with name ', nom, ' and email ', email);
+    // console.log('Tryin to create a new user with name ', nom, ' and email ', email);
     const insertResult = await pool.query('INSERT INTO utilisateurs (email,nom) VALUES ($1, $2) RETURNING *', [email, nom]);
-    console.log('Nouvel utilisateur créé: ', insertResult.rows[0]);
+    // console.log('Nouvel utilisateur créé: ', insertResult.rows[0]);
     res.json(insertResult.rows[0]);
 })
 
 app.post('/appartments/favorites/new', async (req, res) => {
     try {
         const { userId, id } = req.body;
-        console.log('Trying to add real estate good #', id, 'into ', userId, 'favorites');
+        // console.log('Trying to add real estate good #', id, 'into ', userId, 'favorites');
         const insertResult = await pool.query('INSERT INTO favoris (utilisateur_id, bien_id) VALUES ($1, $2) ON CONFLICT DO NOTHING RETURNING *', [userId, id]);
-        console.log('Favori ajouté');
+        // console.log('Favori ajouté');
         res.json(insertResult.rows[0])
     } catch (error) {
         console.error('Erreur lors de l\'ajout du favori:', error);
@@ -209,14 +220,14 @@ app.post('/appartments/favorites/new', async (req, res) => {
 app.delete('/appartments/favorites/delete', async(req, res) => {
     try {
         const { userId, itemId } = req.query;
-        console.log('Trying to delete item', itemId);
+        // console.log('Trying to delete item', itemId);
         const deleteResult = await pool.query('DELETE FROM favoris WHERE utilisateur_id = $1 AND bien_id = $2 RETURNING *', [userId, itemId]);
 
         if (deleteResult.rows.length === 0) {
             return res.status(404).json({ message: 'Favori non trouvé' });
         }
 
-        console.log('Favori supprimé');
+        // console.log('Favori supprimé');
         res.json({ message: 'Favori supprimé avec succès' });
     } catch (error) {
         console.error('Erreur lors de la suppression du favori:', error);

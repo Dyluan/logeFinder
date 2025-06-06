@@ -43,7 +43,6 @@ export class HomePageComponent implements OnInit {
       data => {
         this.appartments = data;
         this.areDataLoaded = true;
-        // console.log('oninit' , this.appartments);
       }
     )
   };
@@ -93,6 +92,11 @@ export class HomePageComponent implements OnInit {
         error: (error) => {
           console.log('Erreur lors du user check', error);
         }
+      })
+      // ajoute le userId dans le localhost pour ne pas avoir à appeler les fonctions 1000 fois
+      this.loginService.getUserId(this.connectedUser.email).subscribe((data) => {
+        localStorage.setItem('userId', data);
+        // console.log('userId', data);
       })
     }
   }
