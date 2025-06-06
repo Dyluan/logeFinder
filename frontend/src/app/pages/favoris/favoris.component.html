@@ -18,6 +18,7 @@
                         [newPrice]="item.prix!"
                         [newLocation]="item.ville!"
                         [newImg]="item.images![0]"
+                        (isItemAddedToFavorite)="OnItemAddedToFavorite($event)"
                     />
                 </div>
             }

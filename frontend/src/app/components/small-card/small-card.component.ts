@@ -25,7 +25,6 @@ export class SmallCardComponent implements OnInit {
       if (this.newId()) {
         this.appartmentService.isFavorite(this.newId()!).subscribe(
           isFavorite => {
-            // console.log('isFavorite?', isFavorite, this.newId());
             this.isFavoriteIconClicked = isFavorite;
             this.favoriteIconSrc = isFavorite ? '/img/favori.png' : '/img/notFavori.png';
           }

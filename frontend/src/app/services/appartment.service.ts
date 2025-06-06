@@ -44,7 +44,6 @@ export class AppartmentService {
 
   isFavorite(itemId: number): Observable<boolean> {
     const userId = localStorage.getItem('userId');
-    // console.log('isFavorite method called. userID:', userId);
     if (!userId) {
       return of (false);
     }

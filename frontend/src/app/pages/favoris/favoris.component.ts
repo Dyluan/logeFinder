@@ -8,6 +8,11 @@ import { Appartement } from '../../models/appartement';
 import { LoginService } from '../../services/login.service';
 import { SmallCardComponent } from '../../components/small-card/small-card.component';
 
+interface FavoriteEvent {
+  isFavorite: boolean;
+  itemId: any;
+}
+
 @Component({
   selector: 'app-favoris',
   imports: [
@@ -50,6 +55,29 @@ export class FavorisComponent {
         })
       })
     }
+  }
+
+  OnItemAddedToFavorite(params: FavoriteEvent) {
+    let userId;
+    //j'appelle la fonctione getUserId pour récupérer l'ID dans la database en fonction de l'email utilisateur
+    this.loginService.getUserId(this.connectedUser.email).subscribe((data) => {
+      userId = data;
+      //j'appelle ma fonction addToFavorites pour rajouter le bien aux favoris de l'utilisateur si l'utilisateur a ajouté le bien a ses favoris
+      if (params.isFavorite === true) {
+        this.appartmentService.addToFavorites(params.itemId, userId).subscribe((_) => {
+          
+        });
+        console.log('Item ajouté aux favoris');
+      }
+      //sinon, l'utilisateur supprime le bien de ses favoris
+      else if(params.isFavorite === false) {
+        console.log('trying to delete from favorites');
+        this.appartmentService.deleteFromFavorites(userId, params.itemId).subscribe((_) => {
+
+        });
+        console.log('Item supprimé des favoris');
+      }
+    });
   }
 
 }
