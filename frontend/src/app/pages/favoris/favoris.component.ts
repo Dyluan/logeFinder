@@ -71,7 +71,7 @@ export class FavorisComponent {
       }
       //sinon, l'utilisateur supprime le bien de ses favoris
       else if(params.isFavorite === false) {
-        console.log('trying to delete from favorites');
+        // console.log('trying to delete from favorites');
         this.appartmentService.deleteFromFavorites(userId, params.itemId).subscribe((_) => {
 
         });

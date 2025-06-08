@@ -13,7 +13,6 @@ export class HeaderComponent implements OnInit {
   constructor(private mainService: MainService, private authService: AuthService) {}
 
   get userProfile() {
-    // console.log('user profile : ', this.authService.getUserProfile());
     return this.authService.getUserProfile();
   }
 
@@ -22,6 +21,7 @@ export class HeaderComponent implements OnInit {
       this.authService.userProfile.subscribe((profile) => {
         this.connectedUser.emit(profile);
       })
+
     }
   }
 

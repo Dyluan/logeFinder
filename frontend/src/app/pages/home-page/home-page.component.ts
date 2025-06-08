@@ -39,15 +39,34 @@ export class HomePageComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.appartmentService.getAppartments().subscribe(
-      data => {
+    let filters = JSON.parse(localStorage.getItem('filters') || '{}');
+    if (Object.keys(filters).length === 0) {
+      // si mes filtres précédents sont vides, j'appelle la fonction basique getAppartments()
+      this.appartmentService.getAppartments().subscribe(
+        data => {
+          this.appartments = data;
+          this.areDataLoaded = true;
+        }
+      )
+      // sinon, j'appelle la fonction searchApparments selon les filtres précédents
+    } else {
+      this.appartmentService.searchAppartments(filters).subscribe({
+      next: (data) => {
+        console.log('Résultats reçus : ' + data.length);
         this.appartments = data;
         this.areDataLoaded = true;
+      },
+      error: (err) => {
+        console.log('Erreur lors de la recherche. ', err);
       }
-    )
+      })
+    }
   };
 
   onFilterChange(filters: any) {
+    //localStorage enregistre les filtres appliqués dans une variable filters
+    //pour empêcher qu'ils soient reset lorsqu'on navigue sur une autre page
+    localStorage.setItem('filters', JSON.stringify(filters));
     this.appartmentService.searchAppartments(filters).subscribe({
       next: (data) => {
         console.log('Résultats reçus : ' + data.length);
@@ -73,7 +92,6 @@ export class HomePageComponent implements OnInit {
   }
 
   OnUserConnected(user: any) {
-    console.log('connected user : ', user)
     this.connectedUser = user;
 
     if (user && user.email) {
@@ -109,13 +127,13 @@ export class HomePageComponent implements OnInit {
       //j'appelle ma fonction addToFavorites pour rajouter le bien aux favoris de l'utilisateur si l'utilisateur a ajouté le bien a ses favoris
       if (params.isFavorite === true) {
         this.appartmentService.addToFavorites(params.itemId, userId).subscribe((_) => {
-          
+
         });
         console.log('Item ajouté aux favoris');
       }
       //sinon, l'utilisateur supprime le bien de ses favoris
       else if(params.isFavorite === false) {
-        console.log('trying to delete from favorites');
+        // console.log('trying to delete from favorites');
         this.appartmentService.deleteFromFavorites(userId, params.itemId).subscribe((_) => {
 
         });

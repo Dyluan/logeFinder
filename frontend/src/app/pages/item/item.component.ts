@@ -49,7 +49,6 @@ export class ItemComponent implements OnInit {
         this.appartment = data;
         this.googleSrc = 'https://www.google.com/maps/embed/v1/place?key='+this.googleMapsApi+'&q='+this.appartment.adresse+','+this.appartment.ville;
         this.realUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.googleSrc);
-        console.log('oninit' , this.appartment);
 
         this.galleriaImages = (this.appartment.images ?? []).map(url => ({
           itemImageSrc: url,
