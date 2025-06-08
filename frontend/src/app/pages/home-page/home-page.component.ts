@@ -52,7 +52,6 @@ export class HomePageComponent implements OnInit {
     } else {
       this.appartmentService.searchAppartments(filters).subscribe({
       next: (data) => {
-        console.log('Résultats reçus : ' + data.length);
         this.appartments = data;
         this.areDataLoaded = true;
       },

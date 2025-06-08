@@ -30,7 +30,7 @@ img {
     align-items: flex-start;
     justify-content: center;
 }
-.right {
+.statsContainer {
     background-color: #F3F3FA;
     border: 1px solid black;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -48,6 +48,23 @@ img {
 }
 .stat {
     padding-top: 24px;
+}
+.favorite {
+    margin-top: 16px;
+}
+.favoriteButton {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1C3988;
+    background-color: #F3F3FA;
+    padding: 14px 26px;
+    border-radius: 6px;
+    border-color: #1C3988;
+    cursor: pointer;
+}
+.favoriteButton:hover {
+    background-color: #6E8AE9;
+    color: white;
 }
 .contacter {
     background-color: #F3F3FA;

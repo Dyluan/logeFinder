@@ -26,7 +26,8 @@ import { BoolPipe } from '../../pipes/bool.pipe';
 })
 export class ItemComponent implements OnInit {
 
-  constructor(private appartmentService: AppartmentService) {}
+  constructor(private appartmentService: AppartmentService) {
+  }
   
   private route = inject(ActivatedRoute);
   private sanitizer = inject(DomSanitizer);
@@ -39,6 +40,8 @@ export class ItemComponent implements OnInit {
   googleMapsApi: string = environment.googleMapsApiKey;
 
   galleriaImages: any[] = [];
+  isFavorite: boolean = true;
+  favoriteButtonText: string = '';
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -57,6 +60,16 @@ export class ItemComponent implements OnInit {
       }
     )
     
+    this.appartmentService.isFavorite(this.id!).subscribe({
+      next: (data: boolean) => {
+        this.isFavorite = data;
+        this.favoriteButtonText = data ? 'Supprimer des favoris' : 'Ajouter aux favoris';
+      },
+      error: (error) => {
+        console.log('Error checking favorite status', error);
+        this.favoriteButtonText = 'Ajouter aux favoris';
+      }
+    })
   }
 
   isMenuOpen = false;
@@ -66,6 +79,10 @@ export class ItemComponent implements OnInit {
   }
   onMenuCloseClick() {
     this.isMenuOpen = false;
+  }
+
+  favoriteButtonClick() {
+    console.log(this.isFavorite);
   }
 
 }

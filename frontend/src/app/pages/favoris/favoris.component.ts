@@ -51,7 +51,6 @@ export class FavorisComponent {
       this.loginService.getUserId(user.email).subscribe((id) => {
         this.appartmentService.getFavorites(id).subscribe((appartements) => {
           this.appartments = appartements;
-          console.log(appartements);
         })
       })
     }

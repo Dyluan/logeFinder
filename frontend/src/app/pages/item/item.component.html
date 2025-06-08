@@ -89,6 +89,9 @@
                     <div class="stat"><b>Nature de l'offre: </b> {{ appartment.type_annonce }}<br /></div>
                 </div>
             </div>
+            <div class="favorite">
+                <button class="favoriteButton" (click)="favoriteButtonClick()">{{ favoriteButtonText }}</button>
+            </div>
         </div>
     </div>        
     <div class="footer">

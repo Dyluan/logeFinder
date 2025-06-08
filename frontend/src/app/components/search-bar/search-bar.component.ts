@@ -103,7 +103,7 @@ export class SearchBarComponent {
     {name: 'Vente'},
     {name: 'Location'}
   ];
-  // should be able to select multiple cities
+
   cities = [
     {name: 'Anderlecht'},
     {name: 'Auderghem'},
