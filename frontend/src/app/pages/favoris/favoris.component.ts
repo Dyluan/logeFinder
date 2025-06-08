@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
@@ -25,7 +25,7 @@ interface FavoriteEvent {
   templateUrl: './favoris.component.html',
   styleUrl: './favoris.component.css'
 })
-export class FavorisComponent {
+export class FavorisComponent implements OnInit {
 
   constructor(
     private appartmentService: AppartmentService,
@@ -37,6 +37,13 @@ export class FavorisComponent {
   //je devrais probablement définir un type User
   connectedUser: any;
 
+  ngOnInit(): void {
+    let storedUser = localStorage.getItem('userId');
+    this.appartmentService.getFavorites(storedUser!).subscribe((appartments) => {
+      this.appartments = appartments;
+    })
+  }
+
   onHeaderMenuClick() {
     this.isMenuOpen = !this.isMenuOpen;
   }
@@ -47,7 +54,7 @@ export class FavorisComponent {
   OnUserConnected(user: any) {
     this.connectedUser = user;
 
-    // je devrai mettre cette logique dans OnInit
+    // pas sûr que cette logique ait toujours sa place ici maintenant que je stoque l'userID dans le localStorage
 
     if (user && user.email) {
       this.loginService.getUserId(user.email).subscribe((id) => {

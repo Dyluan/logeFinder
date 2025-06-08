@@ -21,7 +21,6 @@ export class HeaderComponent implements OnInit {
       this.authService.userProfile.subscribe((profile) => {
         this.connectedUser.emit(profile);
       })
-
     }
   }
 
