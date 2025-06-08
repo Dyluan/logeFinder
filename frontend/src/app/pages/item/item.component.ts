@@ -82,7 +82,18 @@ export class ItemComponent implements OnInit {
   }
 
   favoriteButtonClick() {
-    console.log(this.isFavorite);
+    const userId = localStorage.getItem('userId');
+    if (this.isFavorite === true) {
+      this.appartmentService.deleteFromFavorites(userId!, this.id!).subscribe((_) => {
+        this.favoriteButtonText = 'Ajouter aux favoris';
+        this.isFavorite = false;
+      })
+    } else {
+      this.appartmentService.addToFavorites(this.id!, userId!).subscribe((_) => {
+        this.favoriteButtonText = 'Supprimer des favoris';
+        this.isFavorite = true;
+      })
+    }
   }
 
 }

@@ -34,6 +34,7 @@ export class AppartmentService {
   }
 
   deleteFromFavorites(userId: string, itemId: number): Observable<any> {
+    // const userId = localStorage.getItem('userId');
     let params = new HttpParams();
     params = params.set('userId', userId);
     params = params.set('itemId', itemId);
