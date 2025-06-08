@@ -6,7 +6,7 @@
         Vos annonces favorites
     </div>
     <div class="searchMenu">
-        <app-search-bar></app-search-bar>
+        <app-search-bar (outputFilter)="onFilterChange($event)"></app-search-bar>
     </div>
         <div class="cardsContainer">
         @if (appartments.length > 0) {

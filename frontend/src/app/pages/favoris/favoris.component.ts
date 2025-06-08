@@ -79,4 +79,11 @@ export class FavorisComponent {
     });
   }
 
+  onFilterChange(filters: any) {
+    console.log('Voici mes filtres:', filters);
+    this.appartmentService.searchFavoritesAppartments(filters).subscribe((data) => {
+      this.appartments = data;
+    })
+  }
+
 }

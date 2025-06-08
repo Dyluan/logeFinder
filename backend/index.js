@@ -128,12 +128,99 @@ app.get('/appartments/favorites', async(req, res) => {
         }
         res.json(result.rows);
 
-    }catch (error) {
+    } catch (error) {
         console.error('Erreur lors de la récupération des favoris:', error);
         res.status(500).json({ error: error.message });
     }
     
 });
+
+app.get('/appartments/favorites/search', async(req, res) => {
+    try {
+        const { maxPrice, minSurface, city, minRooms, type_location, type_bien, garage, tri, textSearch, userId } = req.query;
+        const params = [userId];
+        let query = 'SELECT b.* FROM biens_immobiliers b JOIN favoris f ON f.bien_id = b.id WHERE f.utilisateur_id = $1'
+
+        if (maxPrice) {
+            params.push(maxPrice);
+            query += ` AND prix <= $${params.length}`
+        }
+        if (city) {
+            const cities = city.split(',').map(c => c.trim());
+            const cityConditions = cities.map((_, index) => {
+                params.push(cities[index]);
+                return `ville ILIKE $${params.length}`;
+            });
+            query += ` AND (${cityConditions.join(' OR ')})`
+        }
+        if (minRooms) {
+            params.push(minRooms);
+            query += ` AND nombre_chambres >= $${params.length}`;
+        }
+        if (type_location) {
+            //type is either 'Location' or 'Vente'. Database type_location is in lowercase
+            params.push(type_location.toLowerCase());
+            query += ` AND type_annonce = $${params.length}`;
+        }
+        if (minSurface) {
+            const temp_minSurface = parseInt(minSurface);
+            params.push(temp_minSurface);
+            query += ` AND surface >= $${params.length}`
+        }
+        if (type_bien) {
+            const temp_type_bien = type_bien.toLowerCase().trim();
+            params.push(temp_type_bien);
+            query += ` AND type_bien ILIKE $${params.length}`;
+        }
+        if (garage) {
+            let garageValue;
+            if (garage === 'Oui') {
+                garageValue = true;
+            } else {
+                garageValue = false;
+            }
+            params.push(garageValue);
+            query += ` AND garage = $${params.length}`;
+        }
+        if (textSearch) {
+            const searchText = textSearch.trim();
+            if (searchText) {
+                params.push(`%${searchText}%`);
+                query += ` AND title ILIKE $${params.length}`;
+            }
+        }
+        if (tri) {
+            switch(tri) {
+                case 'Prix croissant':
+                    query += ' ORDER BY prix ASC';
+                    break;
+                case 'Prix décroissant':
+                    query += ' ORDER BY prix DESC';
+                    break;
+                case 'Superficie croissant':
+                    query += ' ORDER BY surface ASC';
+                    break;
+                case 'Superficie décroissant':
+                    query += ' ORDER BY surface DESC';
+                    break;
+                case 'Nb chambres croissant':
+                    query += ' ORDER BY nombre_chambres ASC';
+                    break;
+                case 'Nb chambres décroissant':
+                    query += ' ORDER BY nombre_chambres DESC';
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        const result = await pool.query(query, params);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Erreur lors de la récupération des favoris:', error);
+        res.status(500).json({ error: error.message });
+    }
+})
 
 app.get('/appartments/favorites/check', async (req, res) => {
     const { userId, itemId } = req.query;
