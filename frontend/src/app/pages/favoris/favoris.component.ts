@@ -47,6 +47,8 @@ export class FavorisComponent {
   OnUserConnected(user: any) {
     this.connectedUser = user;
 
+    // je devrai mettre cette logique dans OnInit
+
     if (user && user.email) {
       this.loginService.getUserId(user.email).subscribe((id) => {
         this.appartmentService.getFavorites(id).subscribe((appartements) => {
@@ -80,7 +82,7 @@ export class FavorisComponent {
   }
 
   onFilterChange(filters: any) {
-    console.log('Voici mes filtres:', filters);
+    localStorage.setItem('favoriteFilters', JSON.stringify(filters));
     this.appartmentService.searchFavoritesAppartments(filters).subscribe((data) => {
       this.appartments = data;
     })

@@ -1,10 +1,11 @@
-import { Component, output } from '@angular/core';
+import { Component, output, OnInit } from '@angular/core';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -19,9 +20,52 @@ import { MultiSelectModule } from 'primeng/multiselect';
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css'
 })
-export class SearchBarComponent {
+export class SearchBarComponent implements OnInit {
 
   searchValue: string = '';
+  currentUrl: string = '';
+
+  constructor(private router: Router) {
+    this.currentUrl = this.router.url;
+  }
+
+  ngOnInit(): void {
+    // si searchBar est utilisée dans /favoris, alors charger favoriteFilters stocké dans localStorage
+    // sinon, on est dans /home et on charge filters
+    const storageFilter = this.currentUrl === '/favoris' ? 'favoriteFilters' : 'filters';
+    let filters = JSON.parse(localStorage.getItem(storageFilter) || '{}');
+    if (Object.keys(filters).length > 0) {
+      if (filters.textSearch) {
+          this.searchValue = filters.textSearch;
+        }
+      // if (filters.city) {
+      //   this.selectedCity = Array.isArray(filters.city) 
+      //       ? filters.city.map(city => ({ name: city }))
+      //       : [{ name: filters.city }];
+      // }
+      if (filters.type_location) {
+        this.selectedType = { name: filters.type_location };
+      }
+      if (filters.maxPrice) {
+        this.selectedPrice = filters.maxPrice;
+      }
+      if (filters.minRooms) {
+        this.selectedNumberOfRooms = { name: filters.minRooms };
+      }
+      if (filters.type_bien) {
+        this.selectedTypeBien = { name: filters.type_bien };
+      }
+      if (filters.minSurface) {
+        this.selectedSurface = filters.minSurface;
+      }
+      if (filters.garage) {
+        this.selectedGarage = { name: filters.garage };
+      }
+      if (filters.tri) {
+        this.selectedTri = { name: filters.tri };
+      }
+    }
+  }
 
   onclick() {
     const filters: any = {}
