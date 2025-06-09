@@ -39,6 +39,7 @@ export class FavorisComponent implements OnInit {
 
   ngOnInit(): void {
     let storedUser = localStorage.getItem('userId');
+    localStorage.setItem('filters', '{}');
     this.appartmentService.getFavorites(storedUser!).subscribe((appartments) => {
       this.appartments = appartments;
     })

@@ -40,6 +40,7 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit() {
     let filters = JSON.parse(localStorage.getItem('filters') || '{}');
+    localStorage.setItem('favoriteFilters', '{}');
     if (Object.keys(filters).length === 0) {
       // si mes filtres précédents sont vides, j'appelle la fonction basique getAppartments()
       this.appartmentService.getAppartments().subscribe(
