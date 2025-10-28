@@ -69,24 +69,29 @@ Python installé
 ## 🚀 Étapes d’installation
 
 ### 1. Cloner le dépôt
-git clone https://github.com/Dyluan/logeFinder.git
-cd logeFinder
+
+git clone https://github.com/Dyluan/logeFinder.git  
+cd logeFinder  
 
 ### 2. Installer les dépendances
 
 ### Backend
 
-cd backend
-#### Installer les dépendances Node
-npm install    # ou yarn install
-#### Lancer le serveur API
-node app.js
+cd backend  
+
+#### Installer les dépendances Node  
+
+npm install    # ou yarn install  
+
+#### Lancer le serveur API  
+
+node app.js  
 
 ### Frontend
 
-cd ../frontend
-npm install     # ou yarn install
-npm start       # ou yarn start
+cd ../frontend  
+npm install     ou yarn install  
+npm start       ou yarn start  
 
 Une fois le projet lancé, ouvrez votre navigateur à l’adresse indiquée (ex. http://localhost:4200).
 
@@ -94,8 +99,8 @@ Une fois le projet lancé, ouvrez votre navigateur à l’adresse indiquée (ex.
 
 ## 💡 Utilisation
 
-En tant qu’utilisateur, vous pouvez vous inscrire ou vous connecter avec Google pour rechercher des logements, retrouver les logements ajoutés au favoris, etc..
+En tant qu’utilisateur, vous pouvez vous inscrire ou vous connecter avec Google pour rechercher des logements, retrouver les logements ajoutés au favoris, etc..  
 
-En tant qu’administrateur ou propriétaire, vous pouvez ajouter, modifier ou supprimer des annonces.
+En tant qu’administrateur ou propriétaire, vous pouvez ajouter, modifier ou supprimer des annonces.  
 
-Une API REST est disponible pour des intégrations externes (import d’annonces, synchronisation de données, etc.)
+Une API REST est disponible pour des intégrations externes (import d’annonces, synchronisation de données, etc.)  
