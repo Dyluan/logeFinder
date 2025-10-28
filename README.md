@@ -77,9 +77,9 @@ cd logeFinder
 ## Backend
 
 cd backend
-# Installer les dépendances Node
+### Installer les dépendances Node
 npm install    # ou yarn install
-# Lancer le serveur API
+### Lancer le serveur API
 node app.js
 
 ## Frontend
