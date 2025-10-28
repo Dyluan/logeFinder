@@ -71,13 +71,14 @@ Python installé
 ### 1. Cloner le dépôt
 
 git clone https://github.com/Dyluan/logeFinder.git  
-cd logeFinder  
+
+`cd logeFinder`  
 
 ### 2. Installer les dépendances
 
 ### Backend
 
-cd backend  
+`cd backend`  
 
 #### Installer les dépendances Node  
 
@@ -89,7 +90,8 @@ node app.js
 
 ### Frontend
 
-cd ../frontend  
+`cd ../frontend`  
+
 npm install     ou yarn install  
 npm start       ou yarn start  
 
