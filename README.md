@@ -4,12 +4,12 @@ Une application full-stack (backend + frontend) visant à faciliter la recherche
 ---
 
 ## 🧭 Table des matières  
-- [Description](#Description)  
-- [Fonctionnalités](#Fonctionnalités)  
-- [Technologies](#Technologies)  
-- [Architecture & arborescence](#architecture--arborescence)  
-- [Installation & lancement](#installation--lancement)  
-- [Utilisation](#Utilisation)  
+- [Description](#-description)  
+- [Fonctionnalités](#-fonctionnalités)  
+- [Technologies](#%EF%B8%8F-technologies)  
+- [Architecture & arborescence](#-architecture--arborescence)  
+- [Installation & lancement](#-étapes-dinstallation)  
+- [Utilisation](#-utilisation)  
 
 ---
 
