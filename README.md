@@ -44,12 +44,12 @@ Les principales technologies utilisées dans ce projet sont :
 
 ## 🧱 Architecture & arborescence  
 
-/                 ← racine du projet
-├─ backend/        ← code du serveur (API, base de données, etc.)
-├─ frontend/       ← code de l’interface utilisateur (web)
-├─ scripts/        ← utilitaires, scripts d’automatisation et de peuplement
-├─ .gitignore
-└─ package.json    ← gestion des dépendances
+/                 ← racine du projet  
+├─ backend/        ← code du serveur (API, base de données, etc.)  
+├─ frontend/       ← code de l’interface utilisateur (web)  
+├─ scripts/        ← utilitaires, scripts d’automatisation et de peuplement  
+├─ .gitignore  
+└─ package.json    ← gestion des dépendances  
 
 Cette organisation permet de séparer clairement le frontend et le backend, facilitant ainsi le développement, les tests et le déploiement.
 
