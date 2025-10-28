@@ -4,12 +4,12 @@ Une application full-stack (backend + frontend) visant à faciliter la recherche
 ---
 
 ## 🧭 Table des matières  
-- [Description](#description)  
-- [Fonctionnalités](#fonctionnalités)  
-- [Technologies](#technologies)  
+- [Description](#Description)  
+- [Fonctionnalités](#Fonctionnalités)  
+- [Technologies](#Technologies)  
 - [Architecture & arborescence](#architecture--arborescence)  
 - [Installation & lancement](#installation--lancement)  
-- [Utilisation](#utilisation)  
+- [Utilisation](#Utilisation)  
 
 ---
 
@@ -82,18 +82,18 @@ git clone https://github.com/Dyluan/logeFinder.git
 
 #### Installer les dépendances Node  
 
-npm install    # ou yarn install  
+`npm install`    ou    `yarn install`  
 
 #### Lancer le serveur API  
 
-node app.js  
+`node app.js`  
 
 ### Frontend
 
 `cd ../frontend`  
 
-npm install     ou yarn install  
-npm start       ou yarn start  
+`npm install`     ou     `yarn install`  
+`npm start`       ou     `yarn start`  
 
 Une fois le projet lancé, ouvrez votre navigateur à l’adresse indiquée (ex. http://localhost:4200).
 
