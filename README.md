@@ -68,21 +68,22 @@ Python installé
 
 ## 🚀 Étapes d’installation
 
-# 1. Cloner le dépôt
+### 1. Cloner le dépôt
 git clone https://github.com/Dyluan/logeFinder.git
 cd logeFinder
 
----
+### 2. Installer les dépendances
 
-## Backend
+### Backend
 
 cd backend
-### Installer les dépendances Node
+#### Installer les dépendances Node
 npm install    # ou yarn install
-### Lancer le serveur API
+#### Lancer le serveur API
 node app.js
 
-## Frontend
+### Frontend
+
 cd ../frontend
 npm install     # ou yarn install
 npm start       # ou yarn start
